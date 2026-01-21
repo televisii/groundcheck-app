@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 
 async function resetAdmin() {
     const email = 'admin@desa.id';
-    const password = 'password123';
+    const password = 'sehatselalu';
     const nama = 'Administrator Utama';
     
     try {

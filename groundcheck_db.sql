@@ -2,12 +2,12 @@
 -- PostgreSQL database dump
 --
 
-\restrict 4rsgRzOuwtU8mDhCy66T0iJSOoFLeRppbqAfDElo4UpZCZ6mJ1OwMrVWSJxPWbQ
+\restrict gjYhxa6yXGA5ErwlMiiBKuY02nWn9mcwl7cNJVSrdu27X3xOeHfxentkHCSbICJ
 
 -- Dumped from database version 18.1
 -- Dumped by pg_dump version 18.1
 
--- Started on 2026-01-21 16:56:54
+-- Started on 2026-01-21 21:16:43
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -788,6 +788,7 @@ COPY public.lokasi_usaha (idsbr, nama_usaha, alamat_usaha, kode_desa, latitude, 
 31383616	ERVAN NANANG DWIYONO	DUSUN BUNGA TANJUNG	1406010035	\N	\N	Belum Dicek	f	\N	\N	\N
 31941220	Wagianti	Pt.kpr Lipat Kain Selatan	1406010041	\N	\N	Belum Dicek	f	\N	\N	\N
 31188817	ALMIZAN	DUSUN SEI MANGGIS	1406010044	\N	\N	Belum Dicek	f	\N	\N	\N
+28278088	AGUS	DUSUN IV PENGAIRAN	1406010006	\N	\N	Belum Dicek	f	\N	\N	\N
 31640768	Siswanti	Dusun Binaan Rt 002 Rw 001	1406010017	\N	\N	Belum Dicek	f	\N	\N	\N
 18356939	INVESTASI BADAN KORDINASI PENANAMAN MODAL	Suka Maju Rt 002 Rw 002 Lipat Kain Kampar Kiri Kampar Riau	1406010019	\N	\N	Belum Dicek	f	\N	\N	\N
 32173901	Iza	Lubuk Agung	1406010015	\N	\N	Belum Dicek	f	\N	\N	\N
@@ -20009,6 +20010,7 @@ COPY public.lokasi_usaha (idsbr, nama_usaha, alamat_usaha, kode_desa, latitude, 
 30810354	MUHAMAD RAMENDRA	JL RIDHO	1406050003	\N	\N	Belum Dicek	f	\N	\N	\N
 27969099	MITRA WATI	JL. CIKDITIRO PERUM INTAN JELITA II	1406050013	\N	\N	Belum Dicek	f	\N	\N	\N
 31530793	LINDA SASMITA	JL. JENDRAL SUDIRMAN	1406050002	\N	\N	Belum Dicek	f	\N	\N	\N
+32079285	ABDUL AZIZ	JL. FLAMBOYAN	1406050002	\N	\N	Belum Dicek	f	\N	\N	\N
 27907751	LISA WATTI APROSYA	JL. SEI KAMPAR NO. 163, RT. 002 RW. 003, KODE POS 28412	1406050002	\N	\N	Belum Dicek	f	\N	\N	\N
 30826147	SYANIAH	JLN KH AGUS SALIM NO 93A	1406050002	\N	\N	Belum Dicek	f	\N	\N	\N
 32406934	TITI SUGIARTI	JL. FLAMBOYAN	1406050002	\N	\N	Belum Dicek	f	\N	\N	\N
@@ -22386,6 +22388,7 @@ COPY public.lokasi_usaha (idsbr, nama_usaha, alamat_usaha, kode_desa, latitude, 
 37652825	natasya busana <Siti rowiyah>	plaza bangkinang, RT 1/RW 1	1406050003	\N	\N	Belum Dicek	f	\N	\N	\N
 37530077	DEPOT NEO WATER <MUSDALIFAH>	sudirman, RT 0/RW 0	1406050003	\N	\N	Belum Dicek	f	\N	\N	\N
 37530101	Pangkas Rambut Bambang  <Bambang Jumali>	JL.DT.Tabano , RT 3/RW 2	1406050003	\N	\N	Belum Dicek	f	\N	\N	\N
+37581104	 Variasi Motor <m. irvan>	jl sudirman, RT 2/RW 3	1406050002	\N	\N	Belum Dicek	f	\N	\N	\N
 37581214	Toko pakaian anak <yuli sumarni>	pasar inpres, RT 0/RW 0	1406050003	\N	\N	Belum Dicek	f	\N	\N	\N
 37611611	dagang buah akmal <nur akmal>	pasar inpres bangkinang, RT 0/RW 0	1406050013	\N	\N	Belum Dicek	f	\N	\N	\N
 37529974	Pedagang buah  <sari ramadhan >	Pasar Inpres , RT 0/RW 0	1406050003	\N	\N	Belum Dicek	f	\N	\N	\N
@@ -23119,6 +23122,7 @@ COPY public.lokasi_usaha (idsbr, nama_usaha, alamat_usaha, kode_desa, latitude, 
 30588165	Dian deslina	Dusun Telo 002/001 Muara Uwai Bangkinang	1406051002	\N	\N	Belum Dicek	f	\N	\N	\N
 26728542	ZUHRIZAL ZAMZAMI	LK TANJUNG	1406051004	\N	\N	Belum Dicek	f	\N	\N	\N
 27091318	FARIDAH	DUSUN CUBADAK	1406051002	\N	\N	Belum Dicek	f	\N	\N	\N
+30588169	Siti sarah	Jl.kh.mohd.nurmahyudin	1406051009	\N	\N	Belum Dicek	f	\N	\N	\N
 26740051	JAMIN	SP II SUKA MULYA	1406051007	\N	\N	Belum Dicek	f	\N	\N	\N
 25900081	TOTON LESMANA	DUSUN BUKIT PERMAI	1406051009	\N	\N	Belum Dicek	f	\N	\N	\N
 18356885	FAISAL ALGADRI	MUARA UWAI	1406051002	\N	\N	Belum Dicek	f	\N	\N	\N
@@ -23272,6 +23276,7 @@ COPY public.lokasi_usaha (idsbr, nama_usaha, alamat_usaha, kode_desa, latitude, 
 27711201	Asnawati	Pulau Lawas Rt/rw 001/001	1406051001	\N	\N	Belum Dicek	f	\N	\N	\N
 30877053	AMNA MAILIS	LK.BODI,KEL.PULAU	1406051003	\N	\N	Belum Dicek	f	\N	\N	\N
 28449310	MIATIK	KOTO SEI TONANG	1406051004	\N	\N	Belum Dicek	f	\N	\N	\N
+32321241	ADI ARDIANSYAH	DUSUN SUBANGLAN	1406051009	\N	\N	Belum Dicek	f	\N	\N	\N
 29668574	SYAIPUL ISLAMI	DUSUN CUBADAK	1406051002	\N	\N	Belum Dicek	f	\N	\N	\N
 30713136	AYU	JL. DUKU	1406051005	\N	\N	Belum Dicek	f	\N	\N	\N
 30641059	EDI SANDRA	LK TANJUNG	1406051004	\N	\N	Belum Dicek	f	\N	\N	\N
@@ -23347,6 +23352,7 @@ COPY public.lokasi_usaha (idsbr, nama_usaha, alamat_usaha, kode_desa, latitude, 
 32147454	ADE ARIS KUSMAWAN	RINGIN SARI	1406051008	\N	\N	Belum Dicek	f	\N	\N	\N
 29634935	M KARIM AL LATIF	JL MURAI BATU	1406051005	\N	\N	Belum Dicek	f	\N	\N	\N
 27697374	RUDI HARDIANTO	LK. PASIR SIALANG	1406051004	\N	\N	Belum Dicek	f	\N	\N	\N
+29113240	DARMALIS	DUSUN SUBANGLAN	1406051009	\N	\N	Belum Dicek	f	\N	\N	\N
 31535120	RUSDI NUR AKHBAR	LK PASIR SIALANG	1406051004	\N	\N	Belum Dicek	f	\N	\N	\N
 18356093	HANAYVA	Muara Uwai	1406051002	\N	\N	Belum Dicek	f	\N	\N	\N
 25994355	MUKHLED	PASIR SIALANG	1406051004	\N	\N	Belum Dicek	f	\N	\N	\N
@@ -23372,6 +23378,7 @@ COPY public.lokasi_usaha (idsbr, nama_usaha, alamat_usaha, kode_desa, latitude, 
 31418732	Novi adriani	Lk Tepi Ir Rt 02 Rw 04	1406051003	\N	\N	Belum Dicek	f	\N	\N	\N
 26564728	ROSNAWATI	DUSUN KP. GODANG RT/RW 001/002	1406051001	\N	\N	Belum Dicek	f	\N	\N	\N
 26906946	FIAN PANTOGI	PULAU	1406051003	\N	\N	Belum Dicek	f	\N	\N	\N
+27498287	ARY FADILA ILHAM	DUSUN SUBANGLAN	1406051009	\N	\N	Belum Dicek	f	\N	\N	\N
 31947513	Ana yuniasih	Sei Jernih Rt/rw 002/004 Kel Pasir Sialang Kec Bangkinang	1406051004	\N	\N	Belum Dicek	f	\N	\N	\N
 32373205	Widia aprilia	Muara Uwai Rt 001 Rw 001	1406051002	\N	\N	Belum Dicek	f	\N	\N	\N
 31732553	Darsini	Jl.merpati	1406051005	\N	\N	Belum Dicek	f	\N	\N	\N
@@ -23999,6 +24006,7 @@ COPY public.lokasi_usaha (idsbr, nama_usaha, alamat_usaha, kode_desa, latitude, 
 37581779	WARUNG MINUMAN SELFIDA <SELFIDA>	Jl Raya Bangkinang Petapahan, RT 1/RW 1	1406051007	\N	\N	Belum Dicek	f	\N	\N	\N
 37611683	KEDAI BARANG HARIAN <NURASNI>	Kampung godang pulau lawas, RT 2/RW 2	1406051001	\N	\N	Belum Dicek	f	\N	\N	\N
 37611744	KEDAI HARIAN PARDIONO <PARDIONO>	Jalan poros Bukit payung, RT 14/RW 4	1406051008	\N	\N	Belum Dicek	f	\N	\N	\N
+37652863	Bengkel Nas <Kahirunnas>	Binuang, RT 3/RW 8	1406051009	\N	\N	Belum Dicek	f	\N	\N	\N
 37530424	MY LONDRI <NURLAILI>	LK PASIR SIALANG, RT 2/RW 1	1406051004	\N	\N	Belum Dicek	f	\N	\N	\N
 37581647	KEDAI LIZA <ELIZA AFRILIANI>	LK TERATAK, RT 1/RW 1	1406051004	\N	\N	Belum Dicek	f	\N	\N	\N
 37581754	TOKO OBAT NITA <RONITA MARCELONA RAJAGUKGUK>	Laboy jaya, RT 2/RW 2	1406051006	\N	\N	Belum Dicek	f	\N	\N	\N
@@ -24069,6 +24077,7 @@ COPY public.lokasi_usaha (idsbr, nama_usaha, alamat_usaha, kode_desa, latitude, 
 37530525	Menjual Pakaian Dewasa Wanday <WANDAY>	Pasar Suka Mulya , RT 0/RW 0	1406051007	\N	\N	Belum Dicek	f	\N	\N	\N
 37581686	KEDAI MINUMAN PAK ALI <ALI RAHMAN>	Jl raya Bangkinang Petapahan pasir sialang, RT 2/RW 2	1406051004	\N	\N	Belum Dicek	f	\N	\N	\N
 37581605	MU cucian <Muhammad taufik>	muara uwai, RT 4/RW 15	1406051002	\N	\N	Belum Dicek	f	\N	\N	\N
+37581800	ANTHONY PONSEL <MARTONO >	Binuang, RT 2/RW 1	1406051009	\N	\N	Belum Dicek	f	\N	\N	\N
 37581634	WARUNG HARIAN ISHAK <ISHAK>	Lingkungan Rona desa Pulau, RT 2/RW 3	1406051003	\N	\N	Belum Dicek	f	\N	\N	\N
 37581767	Penjahit Qowiya <DEFRI>	Suka Mulya, RT 20/RW 7	1406051007	\N	\N	Belum Dicek	f	\N	\N	\N
 37611687	salsa elektronik  <Erda yeti>	jl Syarifuddin syarif, RT 3/RW 1	1406051002	\N	\N	Belum Dicek	f	\N	\N	\N
@@ -42581,15 +42590,6 @@ COPY public.lokasi_usaha (idsbr, nama_usaha, alamat_usaha, kode_desa, latitude, 
 7486032	SPPG KAMPAR KAMPAR KIRI TENGAH SIMALINYANG	JL. RAYA SIMALINYANG, DUSUN IV LABUH BASAH	1406014002	\N	\N	Belum Dicek	f	\N	\N	\N
 30412269	SRI SUNARTI	DUSUN SUNGAI DERAS	1406030010	\N	\N	Belum Dicek	f	\N	\N	\N
 6634767	BBI SENTRAL SEI TIBUN	RT 003 RW 002 DUSUN TITIAN SAGO	1406060033	\N	\N	Belum Dicek	f	\N	\N	\N
-37581800	ANTHONY PONSEL <MARTONO >	Binuang, RT 2/RW 1	1406051009	0.33498329	101.01852608	Aktif	t	Administrator Utama	2026-01-21 11:05:54.583048	\N
-28278088	AGUS	DUSUN IV PENGAIRAN	1406010006	0.33497270	101.01852310		t	Administrator Utama	2026-01-21 11:23:12.51845	\N
-37652863	Bengkel Nas <Kahirunnas>	Binuang, RT 3/RW 8	1406051009	0.33498460	101.01852880	Aktif	t	Administrator Utama	2026-01-21 11:28:13.664462	\N
-32321241	ADI ARDIANSYAH	DUSUN SUBANGLAN	1406051009	0.33498410	101.01853050	Tutup	t	Administrator Utama	2026-01-21 11:31:25.803172	\N
-27498287	ARY FADILA ILHAM	DUSUN SUBANGLAN	1406051009	0.33498480	101.01852740	Aktif	t	Administrator Utama	2026-01-21 11:36:22.843765	admin@desa.id
-30588169	Siti sarah	Jl.kh.mohd.nurmahyudin	1406051009	0.33498270	101.01852830	Aktif	t	Administrator Utama	2026-01-21 11:39:07.421477	admin@desa.id
-29113240	DARMALIS	DUSUN SUBANGLAN	1406051009	0.33540300	101.01705550	Aktif	t	Administrator Utama	2026-01-21 11:41:12.115742	admin@desa.id
-37581104	 Variasi Motor <m. irvan>	jl sudirman, RT 2/RW 3	1406050002	0.33496620	101.01852380	Aktif	t	Administrator Utama	2026-01-21 15:03:32.012379	admin@desa.id
-32079285	ABDUL AZIZ	JL. FLAMBOYAN	1406050002	0.33516690	101.01867560	Aktif	t	Administrator Utama	2026-01-21 15:06:35.338002	admin@desa.id
 \.
 
 
@@ -42613,7 +42613,462 @@ tPswu8zVLmCNlDlHJMamYKn8MkfoRM0u	{"cookie":{"originalMaxAge":2592000000,"expires
 --
 
 COPY public.users (id, email, nama, password) FROM stdin;
-2	admin@desa.id	Administrator Utama	$2b$10$iDpivER1KCyx6UBTS1rJ4eY7m1MprYfH9.snfuOLxRELbIVjYePsG
+1	joenaldo@gmail.com	JUNALDO	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+2	juliafebrina.tr88@gmail.com	JULIA FEBRINA UTARI	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+3	wielshahelnafia5632@gmail.com	WIELSHA HELNAFIA	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+4	marzukisuki156@gmail.com	MARZUKI	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+5	nofriferry@gmail.com	NOFRI	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+6	febrinifebrini4@gmail.com	FEBRINI MASRI RATNA	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+7	romitepram@gmail.com	ROMI PUTRA	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+8	veraturanda@gmail.com	Verawati Turanda	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+9	sumeldie@gmail.com	Sumedi	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+10	Lianayana62@yahoo.com	Liana	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+11	jufriendi2311@gmail.com	JUFRI ENDI	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+12	Toniwarman10@gmail.com	Toni warman	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+13	arisonadesaputra@gmail.com	ARISON ADE SAPUTRA	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+14	Jimbornakan@gmail.com	Syamsul Khairi	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+15	alyadwi84@gmail.com	Alya Dwi Juliadarni Ogis	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+16	elmanide23@gmail.com	Elmani	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+17	sofiahyusuf123@gmail.com	Sofiah Yusuf	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+18	riosanisani@gmail.com	Moh. Rio Khoerul Sani	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+19	Ari.suhendra535@gmail.com	Ari suhendra	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+20	Nurasmin45@gmail.com	Nurhayati	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+21	reny4358@gmail.com	RENY PUSPITA SARI	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+22	Nichobismabisma@gmail.com	Niko bisma	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+23	soegiharto41@gmail.com	SOEGIHARTO	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+24	adrispd333@gmail.com	ADRI	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+25	jufriyawan39@gmail.com	JUFRIYAWAN	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+26	Rhadikasilvy17@gmail.com	Rhadika silvy	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+27	purwoko.febriyanto@gmail.com	PURWOKO PEBRIYANTO	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+28	dillaaadill@gmail.com	Erna Dores	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+29	nurmanamril654@gmail.com	AMRIL NURMAN	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+30	fitriakhalifah929@gmail.com	Fitria Khalifah	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+31	wedariputeri@gmail.com	Putri Wedari	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+32	shelviana795@gmail.com	Shelviana Tri Handayani	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+33	Muhammadrikhzan@gmail.com	Mapiron	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+34	sukrisaudaro20@gmail.com	SUKRI	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+35	ripniyati2@gmail.com	Ripniyati	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+36	andretasetyakbar12@gmail.com	Andre tasety akbar	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+37	lisanur53@gmail.com	Nur Alisanah	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+38	rindaayuningsari09@gmail.com	Rinda Ayu Ningsari	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+39	riskaamaliah2002@gmail.com	RISKA AMALIAH	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+40	bangkinang0110@gmail.com	Hasbiyar rahmad	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+41	Saihoni0197@gmail.com	Saihoni	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+42	rilasuciandhara@gmail.com	Rila Suci Andhara	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+43	sukmaakbar15@gmail.com	SUKMA AKBAR PUTRA BUNGSU	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+44	Rintokuntu30@gmail.com	Rinto	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+45	dickyrinaldo17@gmail.com	DICKY RINALDO	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+46	germustofa1992@gmail.com	ger mustofa	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+47	eenrohaini1591@gmail.com	Een Rohaini	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+48	lizadesmawati9@gmail.com	LIZA DESMAWATI,S.E	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+49	rezaanggraini331@gmail.com	Reza Anggraini	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+50	Ahmadyasri94@gmail.com	Ahmad yasri	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+51	refirahman1982@gmail.com	Refi Rahman	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+52	pfadhil07@gmail.com	Anton Vitarto	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+53	indrasakha4@gmail.com	Indra Wahyudi	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+54	EmenChandra9885@gmail.com	Emen Candra	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+55	Arfinaldi8@gmail.com	Nuari Arfinaldi	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+56	nhnurhasanah23@gmail.com	Nurhasanah	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+57	Charismalistiani08@gmail.com	Charisma Listiani	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+58	ayukusnaharyanti@gmail.com	Ayu kusnah aryanti	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+59	desrifitriani211@gmail.com	Desri Fitriani	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+60	dedeniba309@gmail.com	Dede Saputra	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+61	zikri.zarman@gmail.com	ZARMAN ZIKRI	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+62	alahidintjgalai@gmail.com	ALAHIDIN	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+63	adepranoto25@gmail.com	Adek Pranoto	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+64	syahputraedi769@gmail.com	EDI SYAH PUTRA	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+65	nurhayatinur764@gmail.com	Nurhayati	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+66	Ridhoalfayed08@gmail.com	Ridho Alfayed	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+67	rarachandrani@gmail.com	Rani Rajani	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+68	yuhendri50@gmail.com	Yuhendri	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+69	yogianggara539@gmail.com	Yogi Anggara	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+70	sudartoadi18@gmail.com	Sudarto Adi Saputro	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+71	trianingsih935@gmail.com	Tria Ningsih	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+72	andhini.safira@gmail.com	Andhini Safira Amanda	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+73	rian.edwin@gmail.com	RIANTO	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+74	khairiadli1994@gmail.com	Khairi adli	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+75	syafiraramelia27@gmail.com	Syafira Ramelia	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+76	badrulakmal86@gmail.com	BADRUL AKMAL	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+77	Ahmadsodik41774@gmail.com	Ahmad sodik	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+78	ayoenpoeja18@gmail.com	AYU NUR AVINA	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+79	helindaratnasari@gmail.com	Helinda Ratna Sari	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+80	yusrizal160789@gmail.com	Yusrizal	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+81	Muhammadyunuz23@gmail.com	M. YUNUS BAKRI	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+82	finaalfianitarian@gmail.com	FINA ALFIANNITA	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+83	ramadhan_trg@yahoo.co.id	NURUL RAMADHAN	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+84	heri.prasetyo8899@gmail.com	HERI PRASETYO	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+85	erlawepaa@gmail.com	Erlawepa Afrilia	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+86	risnaagustina2016@gmail.com	RISNA AGUSTINA	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+87	dimasadjienesha@gmail.com	Dimas adjienesha trenandha	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+88	fatmawati25021976@gmil.com	FATMAWATI	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+89	desyyyoktaviaaa@gmail.com	Desi Oktaviani	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+90	armanto.n8@gmail.com	ARMANTO	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+91	cutfatimahfatt@gmail.com	Nyak Siti Fatimah	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+92	nayan.wae@gmail.com	Sunayan	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+93	sutrisnoilpandi88@gmail.com	Sutrisno ilpandi	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+94	sitirohmiu@gmail.com	Siti Rohmi Ulfa	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+95	melasenda@gmail.com	Senda Mela	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+96	sitimeisyaroh0805@gmail.com	SITI MEISYAROH	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+97	maharani6633@gmail.com	MAHARANI	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+98	saripku688@gmail.com	Syarifah	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+99	hf8562310@gmail.com	Hasan Fahmi	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+100	dhitadhita4068@gmail.com	MUHAMMAD ABDI, SH	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+101	rusdil.amanah@gmail.com	Rusdil Amanah	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+102	sudarnodon@gmail.com	Sudarno	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+103	zackysg11@gmail.com	M ZACKY WAHYUDI	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+104	reflinaldi1184@gmail.com	Reflinaldi	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+105	Riki_zulfianto@yahoo.com	Riki zulfianto	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+106	nadia.agni12@gmail.com	NADIA AGNI ADILLA	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+107	novirasahrii@gmail.com	Novira Sahri	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+108	Susilowardani72@gmail.com	Susilo Wardani	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+109	Jastiutami110@gmail.com	Jasti Utami	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+110	andreheri016@gmail.com	Suheri	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+111	iraazlanteratay20.27@gmail.com	Surya Iraviyuni	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+112	zulhamdinst83@gmail.com	Zulhamdi	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+113	nova.sholina2020@gmail.com	Nova sholina	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+114	Erfifianififin@gmail.com	Erfifiani	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+115	Harimelha@gmail.com	Harimel	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+116	susiardila77@gmail.com	SUSI ARDILA	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+117	irmayaniirmayani36@gmail.com	Irmayani	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+118	salsabillajulia007@gmail.com	Salsabilla Julia	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+119	baharuddinsubayang@gmail.com	Deni Afrianti	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+120	pulmesocu@gmail.com	MARHALIM	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+121	Dedikuok@gmail.com	Dedi	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+122	Nanangpekanbaru26@gmail.com	Nanang basuki	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+123	rionokusuma@gmail.com	Riono Kusuma Atmaja	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+124	srirahayuzanzrick@gmail.com	SRI RAHAYU NINGSIH	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+125	namira2908@gmail.com	NAMIRA	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+126	Winaldi2016@gmail.com	WINALDI	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+127	julialiaa627@gmail.com	Julia Permata Sari	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+128	Hengki170392@gmail.com	Hengki	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+129	sucinoviananda11@gmail.com	Suci Novi Ananda	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+130	choehleng002@gmail.com	Murdianto Dwi Saputro	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+131	harisabd389@gmail.com	ABD. HARIS	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+132	iinayati551@gmail.com	Inayati Syukro	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+133	hokageramadhan@gmail.com	RAMADHANSYAH HASIBUAN	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+134	mitasupitri801@gmail.com	Mita Supitri	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+135	ekafitriani279@gmail.com	Eka Fitriani.bs	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+136	zulhamdarma45@gmail.com	Zulham Darmawan	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+137	putrialva94@gmail.com	Kholip indah saputri	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+138	novianti123pku@gmail.com	NOVIANTI	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+139	rozanatul29@gmail.com	ROZANATUL MUTI'AH	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+140	suerwinarti123@gmail.com	Suer Winarti	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+141	Safitrimarlina580@gmail.com	Marlina Safitri	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+142	suhendri10887@gmail.com	Suhendri	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+143	Mitrafildzaayu@gmail.com	Mitra riza	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+144	viaapriyani04@gmail.com	via apriyani	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+145	Intansalwa459@gmail.com	Intan salwa	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+146	anitarahmi011@gmail.com	ANITA RAHMI	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+147	trisna311291@gmail.com	Trisna wati	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+148	robenkira25@gmail.com	Reni fitriah	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+149	Sucinovitasari1997@gmail.com	Suci Novita Sari	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+150	desimeliati83@gmail.com	Desi Meliati	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+151	naufalmufaddhal@gmail.com	Naufal Mufaddhal	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+152	trioy1240@gmail.com	TRIO YULIANTO	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+153	dewims796@gmail.com	Dewi silvianti	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+154	debbywulandary15@gmail.com	Debi Wulan Dari	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+155	esi.wildiana@yahoo.com	ESI WILDIANA	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+156	imaimaniar43@gmail.com	Imaniar	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+157	indraparniza13@gmail.com	Indra parniza	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+158	rapitakil@gmail.com	Rafiq Aqil	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+159	riinnnaaa03@gmail.com	Hotma Rinna Hasugian	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+160	Yusnitaeni89@gmail.com	Eni yusnita	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+161	aripurnomoaji31@gmail.com	ARI PURNOMO AJI	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+162	jumiran889@gmail.com	JUMIRAN	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+163	mthoha026@gmail.com	MUHAMMAD THOHA	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+164	maztspur@gmail.com	Purwanto	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+165	feryabujihan@gmail.com	FERI	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+166	nahdiya31@gmail.com	Isnaini Nahdiya	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+167	Saripatmawati402@gmail.com	Sari Patmawati	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+168	nurdiati.2112@gmail.com	NURDIATI	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+169	ambarapriani8008@gmail.com	Ambar Apriani	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+170	bismawati982@gmail.com	bismawati	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+171	yoyokmarwadi081331@gmail.com	Yoyok Marwadi	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+172	Suci1370@gmail.com	Suci Indah Lestari	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+173	evimurniati2730@gmail.com	Evi Murniati	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+174	refigustika90@gmail.com	REFI GUSTIKA	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+175	mahrusamin1992@gmail.com	MAHRUS AMIN	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+176	idilditri@gmail.com	IDIL FITRI	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+177	raraanindita647@gmail.com	Bagus suryanto	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+178	nurefni15@gmail.com	NUREFNI	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+179	Nenipenov8784@gmail.com	NENI PURWASIH	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+180	endraafri@gmail.com	AFRIENDRA	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+181	rizkyanggaputra03@gmail.com	Rizky Angga Putra	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+182	usunsutrisna08@gmail.com	USUN SUTRISNA	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+183	noviwahyuni171@gmail.com	Novi Wahyuni	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+184	putratanjo@gmail.com	RIO SAPUTRA	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+185	nursiam211@gmail.com	Nursiam	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+186	amidauswatun@gmail.com	Amida Uswatun Fatonah	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+187	Dyanecko116@gmail.com	Dian Eko Pratama	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+188	tukim839@gmail.com	Fatmawati	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+189	sherlymarlina572@gmail.com	SHERLY MARLINA	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+190	aksa83254@gmail.com	Juki efendi	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+191	bayuanugrah216@gmail.com	Bayu Anugrah	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+192	haiyulf@gmail.com	HAIYUL FADLI	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+193	dhikacotto@gmail.com	Mustika Putra Sanjaya	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+194	eka.rizkiyanti3@gmail.com	Eka Rizki Yanti	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+195	andrijuanda2021@gmail.cO	ANDRI JUANDA	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+196	rizkyputri340@gmail.com	RIZKY PUTRI MELINDAI	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+197	durronneziana@gmail.com	Muhammad Abd Roni	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+198	dwitalaraarmila@gmail.com	Armila dwita lara	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+199	by.ardiansyah85@gmail.com	Bayu Ardiansyah	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+200	cansaputra81@gmail.com	Chandrika syahputra	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+201	titikwahyu149@gmail.com	Titik Wahyu Indrati	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+202	pandimdl4@gmail.com	PANDI	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+203	zararahmi299@gmail.com	ZARAHMI	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+204	27umipkuuu@gmail.com	UMI NADRA	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+205	sugionosugi868@gmail.com	SUGIONO	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+206	themillarema@gmail.com	SUPRAPTO	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+207	samsuddinnasty@gmail.com	SAMSUDDIN	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+208	annisapriatma700@gmail.com	ANNISA PRIATMA	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+209	anasatriana437@gmail.com	Ana satriana	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+210	amyaja13@gmail.com	Hamidah Pulungan	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+211	Soelastri06@gmail.com	Sulastri	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+212	alexander1191@student.unri.ac.id	ALEXANDER	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+213	widhiono27@gmail.com	Widhiono	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+214	evaputry789@gmail.com	EPA PUTRIYANI	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+215	annisarosyadi06@gmail.com	Annisa Rosyadi	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+216	nz526431@gmail.com	Nurzaman	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+217	urikaali@gmail.com	URIKA ALI	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+218	sudionosip17@gmail.com	SUDIONO	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+219	Emarapita12@gmail.com	Ema rapita	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+220	ag7833541@gmail.com	Abdul Gafur	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+221	dahnita.dewi@gmail.com	Dahnita Dewi	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+222	solutionglobalit017@gmail.com	Sam suarto	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+223	ijuna155@gmail.com	JUNAIDI	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+224	Srirahmadani0283@gmail.com	Sri Rahmadani Lubis	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+225	herwantoni905@gmail.com	HERWANTONI	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+226	eko.hardianto1989@gmail.com	Eko Hardiamto	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+227	yantidelvi191@gmail.com	DELVIANTI	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+228	Rosinurdianis20@gmail.com	Rosi Nurdianis	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+229	hard.society87@gmail.com	Hardi Mulyadi	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+230	silviarianti1609@gmail.com	Silvia Rianti	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+231	julnawantikusuma.dewi@gmail.com	Julnawanti Kusuma Dewi	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+232	baduek90@gmail.com	Abdul karim	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+233	sitialfiahh61@gmail.com	Siti Alfiah	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+234	sukatwantoboy07618@gmail.com	SUKATWANTO	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+235	salmahdotnut@gmail.com	Nursalmah	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+236	syahrilganteng1991@gmail.com	Syahril syah	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+237	fikarahayuuu1@gmail.com	Fika Rahayu Putri	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+238	ashabulkahfi0610@gmail.com	ASHABUL KAHFI	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+239	nabillahfitriaa17@gmail.com	Nabillah Fitria	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+240	fadliyusuf598@gmail.com	FADLI	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+241	romadona0329@gmail.com	ROMA DONA	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+242	adisalman9@gmail.com	ADI SALMAN	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+243	ranipuspitadewi191@gmail.com	Rani Puspita Dewi	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+244	khoirulwahid@gmail.com	khoirul wahid	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+245	prinia052@gmail.com	Prinia	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+246	Talkampari@gmail.com	Suprapto	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+247	amrivivokhairul@gmail.com	Riza Umami	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+248	fathuredo63@gmail.com	Fathu Redho	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+249	deddyupbjjut@gmai.com	DEDI RAHMAN	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+250	denimeridelta1811@gmail.com	Deni Meri Delta	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+251	afrimelta4@gmail.com	Afri melta	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+252	batuojuang@gmail.com	JAMALUDDIN	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+253	helenaoviona99@gmail.com	HELENA OVIONA	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+254	supriagustia1836@gmail.com	SUPRI AGUSTIA	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+255	damelaamanda@gmail.com	AMANDA DAMELA	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+256	rionaldi32721@gmail.com	Zulpi putra rio	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+257	jamilbrou123@gmail.com	Muhammad Jamil	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+258	nr.aisyahnurul00@gmail.com	Aisyah Nurul Rezkia	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+259	radhiyah10diah@gmail.com	RADHIYAH	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+260	ikhwanislami8@gmail.com	IKHWAN ISLAMI	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+261	rosidinmunte640@gmail.com	ROSIDIN H MUNTE	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+262	ultradas28@gmail.com	ULTRADAS	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+263	dodi68395@gmail.com	Dodi Saputra	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+264	muhammadamin1489@gmail.com	MUHAMMAD AMIN	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+265	islainimeglen12@gmail.com	ISLAINI	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+266	rizkydaslialthoriq@gmail.com	Rizky Dasli Althoriq	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+267	Rafliorlanda@gmail.com	Muhammad Rafli Mahendra	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+268	nurdiatijannah48@gmail.com	Nurdiati Jannah	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+269	wentiokto86@gmail.com	Wenti Oktobiarti	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+270	bayulaksono3874@gmail.com	BAYU LAKSONO	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+271	lasesuyeni@gmail.com	Lase Suyeni	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+272	wisnupermana43@gmail.com	Wisnu Firman Permana	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+273	bukari.algazali@gmail.com	Bukari	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+274	firdawati.des@gmail.com	Firdawati andris	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+275	rizkaym1002@gmail.com	Rizka Yaumil Marhamah	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+276	Tatihariati@gmail.com	Tati Hariati	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+277	endahkusuma1309@gmail.com	Endah Kusumawati	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+278	septyindrianyy@gmail.com	Septy Indriany Armie	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+279	patengilang@gmail.com	GILANG PRATAMA PUTRA, S.E	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+280	andharijuli1818@gmail.com	ANDHARI SELVIA TRIJULIANTI	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+281	Dinomarjono123@gmain.com	DINO MARJONO	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+282	mayarnifebri@gmail.com	Febri Mayarni	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+283	azriprima30@gmail.com	Azri prima	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+284	annisaabruri@gmail.com	Annisa Abruri Pita Ayu Pramesti	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+285	rsripuji298@gmail.com	Kasni	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+286	amaliaarina13@gmail.com	ARINA AMALIA	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+287	azrinaldi72@gmail.com	Azri Naldi	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+288	rezaandrea008@gmail.com	Reza Andrea Pratama	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+289	lilisrahmawatii02@gmail.com	Lilis Rahmawati	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+290	Shendyaulya71@gmail.com	Shendy aulya	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+291	elpitaheriyanti@gmail.com	ELPITA HERIYANTI	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+292	sitipazila09@gmail.com	SITI PAZILA	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+293	warsitapku@gmail.com	Warsita	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+294	azrialex179@gmail.com	Azri Alek	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+295	masyasuka92@gmail.com	MASYATI	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+296	martaeftika@gmail.com	Marta Eftika	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+297	farianiiklas457@gmail.com	Fariani ikhlas	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+298	nurulfadila9200@gmail.com	NURUL FADILA	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+299	yantirusni6@gmail.com	RUSNI YANTI	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+300	Wie.84@yahoo.com	Dewi Anggraini	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+301	nirwanaputra32@gmail.com	Sugeng Nirwana Putra	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+302	abristanjung@gmail.com	ABRIS	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+303	sefsistem83@gmail.com	SEFSISTEM	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+304	lukiindrianilah@gmail.com	LUKI INDRIANI	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+305	nadianovitaputri123@gmail.com	Nadia Novita Putri	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+306	Mhdcahyadi99@gmail.com	MUHAMMAD CAHYADI	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+307	Pradikaranda3@gmail.com	Rahmad Turanda	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+308	abdulgafuur67@gmail.com	Abdul gafur	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+309	retnokurniaputri2024@gmail.com	Retno kurnia putri	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+310	suriatirati81@gmail.com	SURIATI	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+311	fitrinovriani780@gmail.com	Fitri Novriani	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+312	alvinfernanda28@gmail.com	Alvin Fernanda	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+313	Balenieka18@gmail.com	Muhammad Iqbal	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+314	Asrizal308@gmail.com	ASRIZAL	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+315	dedekfernando30@gmail.com	Dedek Jacky Fernanda	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+316	asriantopm@gmail.com	ASRIANTO	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+317	Belaastariastari@gmail.com	Bela astari	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+318	dcaniago80@gmail.com	Rahmad Hidayat	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+319	sitisyahara02@gmail.com	Siti Syahara	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+320	rinioktavia021@gmail.com	Rini Oktavia	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+321	wiyatirta@gmail.com	Aqlima Adawiya Hijriati	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+322	srimeilanis0205@gmail.com	Sri Meilani. S	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+323	Widhahf19@gmail.com	Widhah Fakhira	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+324	milaadeyulni1406.25@gmail.com	Mila Ade Yulni	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+325	supriadi.derta@gmail.com	Supriadi	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+326	Fitriutami@gmail.com	Fitri utami	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+327	yuliaromesa@gmail.com	YULIA SARI	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+328	Wandisinchan28@gmail.Com	Wandi	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+329	linamunthe0207@gmail.com	LINA WATI BR MUNTE	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+330	ulfa06945@gmail.com	Maria ulfa	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+331	ratnawati413@gmail.com	Ratnawati	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+332	ellasusanti766@gmail.com	ELA SUSANTI	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+333	ranimutia41@gmail.com	Rani Mutia	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+334	rieko.hnd89@gmail.com	RIKO HANDIKA	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+335	rioaputra70@gmai.com	Rio Saputra	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+336	Athasiarihadatulf09@gmail.com	Athasia Rihadatul Fadilah	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+337	andriansaputra811@gmail.com	Andrian Saputra	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+338	marisaafni80@gmail.com	Marisa Afni	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+339	intanlestariiiii.19@gmail.com	intan lestari	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+340	agus.lianto2@gmail.com	Agus Lianto	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+341	akmaltjp87@gmail.com	akmal	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+342	ab.majib04@gmail.com	abdul majib	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+343	Widyahsastri12@gmail.com	Widyah Sastri	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+344	sitiarmi05@gmail.com	SITI ARMILA	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+345	Suryadermawan1616@gmail.com	SURYA DERMAWAN	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+346	wellymaulidya4@gmail.com	Welly Maulidya	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+347	benjoel.kurniawan@gmail.com	Varid Adi Kurniawan	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+348	ronydwikusnadi68@gmail.com	Rony Dwi Kusnadi	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+349	yuriameliia20@gmail.com	Yuri Amelia	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+350	dewinurbeti534@gmail.com	Dewi Nur Beti	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+351	masdurrahmat2709@gmail.com	MASDUR RAHMAT	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+352	riskanoviana556@gmail.com	Riska Noviana	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+353	nurdayana302@gmail.com	nurdayana	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+354	muhammadaprinanda12@gmail.com	Muhammad Aprinanda	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+355	anissaaulia2000@gmail.com	ANNISA AULIA	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+356	anggidilasari5@gmail.com	ANGGI DILA SARI	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+357	riskydarmawansyah78@gmail.com	Rizky Darmawansyah	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+358	elsailya384@gmail.com	Elsa Ilya Putri	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+359	Ono.supri69@gmail.com	SUPRIYONO	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+360	Umarabdulazis015@gmail.com	Umar abdul azis	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+361	kikiaprililawati3@gmail.com	Kiki Aprililawati	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+362	lidyariyanti41@gmail.com	Lidya Riyanti	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+363	wirdayanielza@gmail.com	Elza Wirdayani	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+364	pratamajono521@gmail.com	JONO PRATAMA PUTRA	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+365	romimahendra99@gmail.com	ROMI MAHENDRA	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+366	arifsetiawn03@gmail.com	Arif Setiawan	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+367	etiyuliana05@gmail.com	Eti Yuliana	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+368	zidannaufalfikri1406.25@gmail.com	Zidan Naufal Fikrillah	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+369	ollyviavanessa8@gmail.com	Ollyvia Vanessa Rahma	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+370	rozi23frz@gmail.com	Fachrul Rozi	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+371	intanjamilahulfa1@gmail.com	Intan Jamilah Ulfa	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+372	Aqil.pku2017@gmail.com	Rasidah	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+373	lihinphone@gmail.com	Solihin	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+374	nur294311@gmail.com	Nurhayati	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+375	imamginanjar298@gmail.com	Imam Ginanjar	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+376	rossasiskas@gmail.com	Rossa Siska Sitorus	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+377	okrio91@yahoo.com	RUDI VOLLER	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+378	gusrichandraadinata@gmail.com	MUHAMMAD GUSRI CANDRA	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+379	cacut888@gmail.com	Risha Dwi Putri	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+380	miyaefendi131208@gmail.com	Kusmiyatun	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+381	lindayesa20@gmail.com	LINDA	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+382	suryosuratno71@gmail.com	Suryo Suratno	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+383	safitrimira637@gmail.com	mira safitri	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+384	suhendrikoga@gmail.com	Suhendri	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+385	yunitaasmara98@gmail.com	YUNITA ASMA	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+386	harriramadhan19@gmail.com	Harri Ramadhan	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+387	alandri050197@gmail.com	Al Andri	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+388	meidinanurul1505@gmail.com	Meidina Nurul Aliyyah	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+389	Jeriyosrizal99@gmail.com	Jeri yoserizal	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+390	susianggraini1503@gmail.com	Susi Anggraini	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+391	Kumaladewidiyah@gmail.com	Diyah kumala dewi	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+392	Fahrezi1945@gmail.com	M Fahrezi	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+393	azmaicitra@gmail.cm	Azmai citra	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+394	woktaviani477@gmail.com	Winda Oktaviani	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+395	Randisafutra98@gmail.com	RANDI SAFUTRA	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+396	salimahinfiya827@gmail.com	Salimah Infiyatul Fikriyah	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+397	milafana8@gmail.com	mila fiana	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+398	tri3inetwork@gmail.com	Tri Mardiyanto Yuono	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+399	naftahrkh@gmail.com	Naftah Rizqa Khairani	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+400	anggiamaulana3@gmail.com	ANGGIA TRI ANDINI	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+401	reredwimiranda@gmail.com	Regita Dwi Miranda	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+402	hastamayas@gmail.com	Hasta Mayas	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+403	rudipurnama06@gmail.com	Rudi Purnama	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+404	emifebrina89@gmail.com	Emi Febrina Depari	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+405	ridhoindraaldino@gmail.com	Ridho Indra Aldino	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+406	isnainisinaga412@gmail.com	ISNAINI MASHITAH SINAGA	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+407	saputranofri201@gmail.com	NOFRI YANSAPUTRA	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+408	tikoherpian@gmail.com	HERPIAN DARMANTIKO	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+409	wirdatulsalwa1406.25@gmail.com	Wirdatul Salwa	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+410	enjelinabrlumban1406.25@gmail.com	Enjelina Br Lumban Gaol	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+411	reny.sari17@gmail.com	RENY PUSPITA SARI	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+412	andricopurnama90@gmail.com	ANDRICO PURNAMA	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+413	nurhiidayatii1987@gmail.com	NURHIDAYATI	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+414	a7300035@gmail.com	ANGGUN NOVEN PANGESTI	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+415	porisantosopori@gmail.com	Pori santoso	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+416	amirah.nisaaa@gmail.com	Nisa Amirah	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+417	nfadla83@gmail.com	Nur Fadla	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+418	Noviyanti090270@gmail.com	Novianti	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+419	indriartini2955@gmail.com	RAHAYU TRI INDRIARTINI	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+420	Ivanelta23@gmail.com	Ivan elta	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+421	salmetmiftah321@gmail.com	Salmet Miftah Firdaus	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+422	fikrifajrul82@gmail.com	ERNI KURNIAWATI	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+423	zizijiji2005@gmail.com	SUZIANA RIZKIQO	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+424	Refiwahyudi9@gmail.com	Refli Wahyudi	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+425	data.supandi@gmail.com	supandi	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+426	milaintanlestari6@gmail.com	Mila Intan Lestari	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+427	delianita0109@gmail.com	Deli Anita	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+428	selviamhrn4@gmail.com	Selvia maharani	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+429	tapungwarti@gmail.com	wartini	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+430	msodikin160918@gmail.com	M. SODIKIN	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+431	adeafriani1406.25@gmail.com	Ade Afriani	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+432	Sukronsonggan@gmail.com	SUKRON	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+433	Si3lviaicin@gmail.com	Sisi silvia	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+434	umi.4qilla@gmail.com	Nisa Rahma Maisyarani	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+435	betmawati858@gmail.com	Betmawati	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+436	prawiroradis4@gmail.com	Radis Prawiro	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+437	maulizakirani34@gmail.com	Mauliza Kirani Pakpahan	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+438	Riealtomaslginih@gmail.com	SRI MULYATI	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+439	Nurazizahpku18@gmail.com	NUR AZIZAH	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+440	ikkejanita1@gmail.com	Ikke janita	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+441	rezainalb@gmail.com	REZAINAL BASUKI	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+442	syintiamaiyani357@gmail.com	SYINTIA MAIYANI	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+443	miftahuljannah.rrm@gmail.com	MIFTAHUL JANNAH	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+444	dilaherismisandy05@gmail.com	Fadilah Herismisandy	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+445	asfinafitri1406.25@gmail.com	Asfina Fitri	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+446	fitriarasmiati1406.25@gmail.com	Fitria Rasmiati	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+447	nurliaagni1406.25@gmail.com	Nurlia Agni Saputri	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+448	rennyfourmia01@gmail.com	RENI FOURMIA SARI	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+449	gunawanpku@gmail.com	Gunawan	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+450	pekanbaruhamsir@gmail.com	Hamsir	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+451	thezuky69@gmail.com	Muhammad Zukri	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+452	dedid3911@gmail.com	Dedi Dadiono	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+453	dheaaftarii@gmail.com	Dhea Putri Aftari	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+454	ramonapebrianti@gmail.con	Ramona Pebrianti	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+455	afdeldarius01@gmail.com	Afdel Darius	$2b$10$m6BosBuL21Pqzy.Z/uOuH.y90UcNxSK5fjDvhE3kIZ1dmZjciBVzq
+456	admin@desa.id	Administrator Utama	$2b$10$SPcqI4Hyx4sBzGKOzrXSkeMPIbqycfRpSp7qRrODsbpIkymy58rqa
 \.
 
 
@@ -42904,7 +43359,7 @@ COPY public.wilayah (kode, nama) FROM stdin;
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.users_id_seq', 2, true);
+SELECT pg_catalog.setval('public.users_id_seq', 456, true);
 
 
 --
@@ -42968,11 +43423,11 @@ CREATE INDEX idx_desa_verified ON public.lokasi_usaha USING btree (kode_desa, is
 CREATE INDEX idx_wilayah_search ON public.wilayah USING btree (kode);
 
 
--- Completed on 2026-01-21 16:56:54
+-- Completed on 2026-01-21 21:16:43
 
 --
 -- PostgreSQL database dump complete
 --
 
-\unrestrict 4rsgRzOuwtU8mDhCy66T0iJSOoFLeRppbqAfDElo4UpZCZ6mJ1OwMrVWSJxPWbQ
+\unrestrict gjYhxa6yXGA5ErwlMiiBKuY02nWn9mcwl7cNJVSrdu27X3xOeHfxentkHCSbICJ
 
