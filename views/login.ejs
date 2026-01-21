@@ -1,34 +1,182 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Petugas</title>
+    <title>Login - GC Pro</title>
     <style>
-        body { font-family: sans-serif; background: #f4f7f6; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; }
-        .card { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 100%; max-width: 350px; text-align: center; }
-        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; }
-        button { width: 100%; padding: 12px; background: #4361ee; color: white; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; }
+        :root { --primary: #2d3436; --accent: #0984e3; --danger: #d63031; }
+        body { 
+            font-family: -apple-system, sans-serif; 
+            background: #e9ecef; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+            margin: 0; 
+        }
+        .login-card { 
+            background: white; 
+            padding: 35px 30px; 
+            border-radius: 20px; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1); 
+            width: 90%; 
+            max-width: 360px; 
+        }
+        h2 { margin-top: 0; color: var(--primary); font-size: 24px; text-align: center; margin-bottom: 25px; }
+        
+        /* Error Box Style */
+        #error-box { 
+            display: none; 
+            background: #fff5f5; 
+            color: var(--danger); 
+            padding: 12px; 
+            border-radius: 10px; 
+            border: 1px solid #feb2b2; 
+            margin-bottom: 20px; 
+            font-size: 13px; 
+            text-align: center;
+            animation: shake 0.3s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .input-group { margin-bottom: 18px; }
+        label { display: block; font-size: 11px; color: #636e72; margin-bottom: 6px; font-weight: 800; letter-spacing: 0.5px; }
+        
+        input { 
+            width: 100%; 
+            padding: 14px; 
+            border: 1px solid #ddd; 
+            border-radius: 10px; 
+            box-sizing: border-box; 
+            outline: none; 
+            transition: 0.3s; 
+            font-size: 15px;
+            background: #f8f9fa;
+        }
+        input:focus { border-color: var(--accent); background: white; box-shadow: 0 0 0 3px rgba(9, 132, 227, 0.1); }
+
+        /* Hide/Show Password Wrapper */
+        .password-wrapper { position: relative; }
+        .toggle-password {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: var(--accent);
+            font-size: 11px;
+            user-select: none;
+            font-weight: bold;
+            padding: 5px;
+        }
+        
+        .btn-login { 
+            width: 100%; 
+            padding: 16px; 
+            background: var(--accent); 
+            color: white; 
+            border: none; 
+            border-radius: 12px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            margin-top: 15px;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+        .btn-login:active { transform: scale(0.98); }
+        .btn-login:disabled { background: #b2bec3; cursor: not-allowed; }
     </style>
 </head>
 <body>
-    <div class="card">
-        <h2>GC Pro</h2>
-        <p>Masuk untuk memulai verifikasi</p>
-        <input type="email" id="email" placeholder="Email Petugas">
-        <input type="password" id="password" placeholder="Password">
-        <button onclick="doLogin()">MASUK</button>
-    </div>
-    <script>
-        async function doLogin() {
+
+<div class="login-card">
+    <h2>GC Pro Login</h2>
+    
+    <div id="error-box"></div>
+
+    <form id="login-form">
+        <div class="input-group">
+            <label>ALAMAT EMAIL</label>
+            <input type="email" id="email" placeholder="nama@email.com" required autocomplete="email">
+        </div>
+        
+        <div class="input-group">
+            <label>KATA SANDI</label>
+            <div class="password-wrapper">
+                <input type="password" id="password" placeholder="••••••••" required autocomplete="current-password">
+                <span class="toggle-password" id="togglePassword">LIHAT</span>
+            </div>
+        </div>
+
+        <button type="submit" class="btn-login" id="btn-submit">MASUK KE DASHBOARD</button>
+    </form>
+</div>
+
+<script>
+    const loginForm = document.getElementById('login-form');
+    const errorBox = document.getElementById('error-box');
+    const btnSubmit = document.getElementById('btn-submit');
+    const passwordInput = document.getElementById('password');
+    const togglePassword = document.getElementById('togglePassword');
+
+    // Toggle Visibility
+    togglePassword.onclick = () => {
+        const isPwd = passwordInput.type === 'password';
+        passwordInput.type = isPwd ? 'text' : 'password';
+        togglePassword.textContent = isPwd ? 'SEMBUNYI' : 'LIHAT';
+    };
+
+    // Form Submit Handler (Terpucu oleh Klik Tombol ATAU Tekan Enter)
+    loginForm.onsubmit = async (e) => {
+        e.preventDefault(); // Mencegah reload halaman
+        
+        // Reset Error & Loading State
+        errorBox.style.display = 'none';
+        btnSubmit.disabled = true;
+        btnSubmit.innerText = 'MENGHUBUNGKAN...';
+
+        const email = document.getElementById('email').value;
+        const password = passwordInput.value;
+
+        try {
             const res = await fetch('/api/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email: document.getElementById('email').value, password: document.getElementById('password').value })
+                body: JSON.stringify({ email, password })
             });
+
             const data = await res.json();
-            if(data.success) window.location.href = '/';
-            else alert(data.message);
+
+            if (res.ok && data.success) {
+                window.location.href = '/';
+            } else {
+                showError(data.message || 'Email atau Password salah!');
+            }
+        } catch (err) {
+            showError('Server tidak merespons. Periksa koneksi internet.');
+        } finally {
+            if (!window.location.href.endsWith('/')) {
+                btnSubmit.disabled = false;
+                btnSubmit.innerText = 'MASUK KE DASHBOARD';
+            }
         }
-    </script>
+    };
+
+    function showError(msg) {
+        errorBox.innerText = msg;
+        errorBox.style.display = 'block';
+        // Trigger shake animation ulang jika sudah ada
+        errorBox.style.animation = 'none';
+        errorBox.offsetHeight; /* trigger reflow */
+        errorBox.style.animation = null; 
+    }
+</script>
+
 </body>
 </html>
