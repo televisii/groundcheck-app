@@ -1,0 +1,14 @@
+# Dependency
+node_modules/
+
+# Environment Variables (Data sensitif database)
+.env
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS Files
+.DS_Store
+Thumbs.db
