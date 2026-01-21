@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - GC Pro</title>
     <style>
-        :root { --primary: #2d3436; --accent: #0984e3; --danger: #d63031; }
+        :root { --primary: #2d3436; --accent: #0984e3; }
         body { 
             font-family: -apple-system, sans-serif; 
             background: #e9ecef; 
@@ -17,80 +17,69 @@
         }
         .login-card { 
             background: white; 
-            padding: 35px 30px; 
+            padding: 30px; 
             border-radius: 20px; 
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1); 
-            width: 90%; 
-            max-width: 360px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1); 
+            width: 100%; 
+            max-width: 350px; 
         }
-        h2 { margin-top: 0; color: var(--primary); font-size: 24px; text-align: center; margin-bottom: 25px; }
-        
-        /* Error Box Style */
-        #error-box { 
-            display: none; 
-            background: #fff5f5; 
-            color: var(--danger); 
-            padding: 12px; 
-            border-radius: 10px; 
-            border: 1px solid #feb2b2; 
-            margin-bottom: 20px; 
-            font-size: 13px; 
-            text-align: center;
-            animation: shake 0.3s ease-in-out;
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
-        }
-
-        .input-group { margin-bottom: 18px; }
-        label { display: block; font-size: 11px; color: #636e72; margin-bottom: 6px; font-weight: 800; letter-spacing: 0.5px; }
+        h2 { margin-top: 0; color: var(--primary); text-align: center; margin-bottom: 25px; }
+        .input-group { margin-bottom: 15px; }
         
         input { 
             width: 100%; 
-            padding: 14px; 
+            padding: 12px; 
             border: 1px solid #ddd; 
-            border-radius: 10px; 
+            border-radius: 8px; 
             box-sizing: border-box; 
             outline: none; 
             transition: 0.3s; 
-            font-size: 15px;
-            background: #f8f9fa;
         }
-        input:focus { border-color: var(--accent); background: white; box-shadow: 0 0 0 3px rgba(9, 132, 227, 0.1); }
-
-        /* Hide/Show Password Wrapper */
-        .password-wrapper { position: relative; }
-        .toggle-password {
-            position: absolute;
-            right: 14px;
-            top: 50%;
-            transform: translateY(-50%);
-            cursor: pointer;
-            color: var(--accent);
-            font-size: 11px;
-            user-select: none;
-            font-weight: bold;
-            padding: 5px;
-        }
+        input:focus { border-color: var(--accent); }
         
-        .btn-login { 
+        /* MAGIC: Menghilangkan placeholder saat fokus */
+        input:focus::placeholder {
+            color: transparent;
+        }
+
+        .show-pw-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: -10px;
+            margin-bottom: 15px;
+            font-size: 13px;
+            color: #636e72;
+            cursor: pointer;
+        }
+        .show-pw-container input {
+            width: auto;
+            cursor: pointer;
+        }
+
+        button { 
             width: 100%; 
-            padding: 16px; 
+            padding: 12px; 
             background: var(--accent); 
             color: white; 
             border: none; 
-            border-radius: 12px; 
+            border-radius: 8px; 
             font-weight: bold; 
             cursor: pointer; 
-            margin-top: 15px;
-            font-size: 14px;
-            transition: 0.2s;
         }
-        .btn-login:active { transform: scale(0.98); }
-        .btn-login:disabled { background: #b2bec3; cursor: not-allowed; }
+        button:active { transform: scale(0.98); }
+
+        #error-msg {
+            color: #d63031;
+            background: #fff1f0;
+            border: 1px solid #ffccc7;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 13px;
+            margin-bottom: 15px;
+            display: none; /* Sembunyi jika tidak ada error */
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -98,51 +87,43 @@
 <div class="login-card">
     <h2>GC Pro Login</h2>
     
-    <div id="error-box"></div>
+    <div id="error-msg"></div>
 
-    <form id="login-form">
+    <form id="loginForm">
         <div class="input-group">
-            <label>ALAMAT EMAIL</label>
-            <input type="email" id="email" placeholder="nama@email.com" required autocomplete="email">
+            <input type="email" id="email" placeholder="Email Petugas" required>
+        </div>
+        <div class="input-group">
+            <input type="password" id="password" placeholder="********" required>
         </div>
         
-        <div class="input-group">
-            <label>KATA SANDI</label>
-            <div class="password-wrapper">
-                <input type="password" id="password" placeholder="••••••••" required autocomplete="current-password">
-                <span class="toggle-password" id="togglePassword">LIHAT</span>
-            </div>
-        </div>
+        <label class="show-pw-container">
+            <input type="checkbox" onclick="togglePassword()"> Tampilkan Password
+        </label>
 
-        <button type="submit" class="btn-login" id="btn-submit">MASUK KE DASHBOARD</button>
+        <button type="submit">MASUK</button>
     </form>
 </div>
 
 <script>
-    const loginForm = document.getElementById('login-form');
-    const errorBox = document.getElementById('error-box');
-    const btnSubmit = document.getElementById('btn-submit');
-    const passwordInput = document.getElementById('password');
-    const togglePassword = document.getElementById('togglePassword');
+    // Fungsi Show Password
+    function togglePassword() {
+        const x = document.getElementById("password");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
 
-    // Toggle Visibility
-    togglePassword.onclick = () => {
-        const isPwd = passwordInput.type === 'password';
-        passwordInput.type = isPwd ? 'text' : 'password';
-        togglePassword.textContent = isPwd ? 'SEMBUNYI' : 'LIHAT';
-    };
-
-    // Form Submit Handler (Terpucu oleh Klik Tombol ATAU Tekan Enter)
-    loginForm.onsubmit = async (e) => {
-        e.preventDefault(); // Mencegah reload halaman
-        
-        // Reset Error & Loading State
-        errorBox.style.display = 'none';
-        btnSubmit.disabled = true;
-        btnSubmit.innerText = 'MENGHUBUNGKAN...';
-
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
         const email = document.getElementById('email').value;
-        const password = passwordInput.value;
+        const password = document.getElementById('password').value;
+        const errorDiv = document.getElementById('error-msg');
+
+        // Reset error state
+        errorDiv.style.display = 'none';
 
         try {
             const res = await fetch('/api/login', {
@@ -150,32 +131,20 @@
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password })
             });
-
             const data = await res.json();
 
-            if (res.ok && data.success) {
+            if (data.success) {
                 window.location.href = '/';
             } else {
-                showError(data.message || 'Email atau Password salah!');
+                // Tampilkan error di box merah
+                errorDiv.innerText = data.message || 'Email atau Password salah';
+                errorDiv.style.display = 'block';
             }
         } catch (err) {
-            showError('Server tidak merespons. Periksa koneksi internet.');
-        } finally {
-            if (!window.location.href.endsWith('/')) {
-                btnSubmit.disabled = false;
-                btnSubmit.innerText = 'MASUK KE DASHBOARD';
-            }
+            errorDiv.innerText = 'Terjadi kesalahan koneksi ke server';
+            errorDiv.style.display = 'block';
         }
-    };
-
-    function showError(msg) {
-        errorBox.innerText = msg;
-        errorBox.style.display = 'block';
-        // Trigger shake animation ulang jika sudah ada
-        errorBox.style.animation = 'none';
-        errorBox.offsetHeight; /* trigger reflow */
-        errorBox.style.animation = null; 
-    }
+    });
 </script>
 
 </body>
