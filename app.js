@@ -88,22 +88,20 @@ app.get('/', checkAuth, (req, res) => {
 
 // --- FITUR KHUSUS ADMIN ---
 
-// 1. Dashboard Monitoring (Dengan Search & Pagination)
+// 1. Dashboard Monitoring (Update: Support AJAX/Real-time)
 app.get('/admin/dashboard', checkAuth, checkAdmin, async (req, res) => {
     try {
-        // Ambil parameter dari URL (default page 1, search kosong)
         const search = req.query.search || '';
         const page = parseInt(req.query.page) || 1;
-        const limit = 10; // Batas per halaman
+        const limit = 10;
         const offset = (page - 1) * limit;
 
-        // A. Statistik Global (Kartu Atas)
+        // A. Statistik Global (Tetap)
         const totalUsaha = await pool.query('SELECT COUNT(*) FROM lokasi_usaha');
         const sudahVerif = await pool.query('SELECT COUNT(*) FROM lokasi_usaha WHERE is_verified = TRUE');
         const belumVerif = await pool.query('SELECT COUNT(*) FROM lokasi_usaha WHERE is_verified = FALSE');
 
-        // B. Leaderboard Petugas (Tabel Bawah)
-        // Query untuk menghitung kinerja per petugas
+        // B. Leaderboard Data
         const queryLeaderboard = `
             SELECT petugas_nama, petugas_email, COUNT(*) as total_kerja 
             FROM lokasi_usaha 
@@ -112,17 +110,21 @@ app.get('/admin/dashboard', checkAuth, checkAdmin, async (req, res) => {
             ORDER BY total_kerja DESC
         `;
 
-        // Jalankan query dengan filter nama
         const allResult = await pool.query(queryLeaderboard, [`%${search}%`]);
-
-        // Hitung total data untuk pagination
         const totalData = allResult.rows.length;
         const totalPages = Math.ceil(totalData / limit);
-
-        // Potong data sesuai halaman (Slicing)
         const paginatedData = allResult.rows.slice(offset, offset + limit);
 
-        // Render halaman
+        // --- [BAGIAN BARU] CEK REQUEST AJAX ---
+        // Jika request datang dari ketikan pencarian (background), kirim JSON saja
+        if (req.query.ajax) {
+            return res.json({
+                leaderboard: paginatedData,
+                pagination: { page, totalPages, search }
+            });
+        }
+        // --------------------------------------
+
         res.render('admin-dashboard', {
             user: req.session.user,
             stats: {
@@ -130,12 +132,8 @@ app.get('/admin/dashboard', checkAuth, checkAdmin, async (req, res) => {
                 verified: parseInt(sudahVerif.rows[0].count),
                 pending: parseInt(belumVerif.rows[0].count)
             },
-            leaderboard: paginatedData, // Data yang sudah dipotong
-            pagination: {
-                page: page,
-                totalPages: totalPages,
-                search: search
-            }
+            leaderboard: paginatedData,
+            pagination: { page, totalPages, search }
         });
 
     } catch (err) {
