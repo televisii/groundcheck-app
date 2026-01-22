@@ -14,23 +14,12 @@ app.set('view engine', 'ejs');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-<<<<<<< HEAD
-// Konfigurasi Session
-=======
 // --- SESSION CONFIGURATION ---
->>>>>>> 45455c08ccd6130758bcd5a6ae24284f39b0b15e
 app.use(session({
     store: new pgSession({ pool: pool, tableName: 'session' }),
     secret: process.env.SESSION_SECRET || 'gc-pro-2026-secure-key',
     resave: false,
     saveUninitialized: false,
-<<<<<<< HEAD
-    cookie: { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true }
-}));
-
-// Middleware Proteksi Sesi
-const requireAuth = (req, res, next) => {
-=======
     cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 } // 30 Hari
 }));
 
@@ -38,7 +27,6 @@ const requireAuth = (req, res, next) => {
 
 // 1. Cek Login
 const checkAuth = (req, res, next) => {
->>>>>>> 45455c08ccd6130758bcd5a6ae24284f39b0b15e
     if (req.session.user) return next();
     if (req.path.startsWith('/api/')) {
         return res.status(401).json({ message: 'Sesi berakhir, silakan login kembali.' });
@@ -46,13 +34,6 @@ const checkAuth = (req, res, next) => {
     res.redirect('/login');
 };
 
-<<<<<<< HEAD
-// --- PUBLIC ROUTES ---
-app.get('/login', (req, res) => {
-    if (req.session.user) return res.redirect('/');
-    res.render('login');
-});
-=======
 // 2. Cek Admin (Hanya Role Admin yang boleh lewat)
 const checkAdmin = (req, res, next) => {
     if (req.session.user && req.session.user.role === 'admin') {
@@ -64,7 +45,6 @@ const checkAdmin = (req, res, next) => {
 // --- AUTHENTICATION ROUTES ---
 
 app.get('/login', (req, res) => res.render('login'));
->>>>>>> 45455c08ccd6130758bcd5a6ae24284f39b0b15e
 
 app.post('/api/login', async (req, res) => {
     const { email, password } = req.body;
@@ -87,13 +67,9 @@ app.post('/api/login', async (req, res) => {
             }
         }
         res.status(401).json({ message: 'Email atau Password salah!' });
-<<<<<<< HEAD
-    } catch (err) { res.status(500).json({ error: 'Server Error' }); }
-=======
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
->>>>>>> 45455c08ccd6130758bcd5a6ae24284f39b0b15e
 });
 
 app.get('/logout', (req, res) => {
@@ -101,15 +77,6 @@ app.get('/logout', (req, res) => {
     res.redirect('/login');
 });
 
-<<<<<<< HEAD
-// --- PROTECTED ROUTES ---
-app.use(requireAuth);
-
-app.get('/', (req, res) => res.render('groundcheck', { user: req.session.user }));
-
-app.get('/api/stats-petugas', async (req, res) => {
-    const result = await pool.query('SELECT COUNT(*) FROM lokasi_usaha WHERE petugas_email = $1 AND is_verified = TRUE', [req.session.user.email]);
-=======
 // --- MAIN ROUTE (REDIRECTOR) ---
 
 app.get('/', checkAuth, (req, res) => {
@@ -237,19 +204,14 @@ app.get('/api/stats-petugas', checkAuth, async (req, res) => {
         'SELECT COUNT(*) FROM lokasi_usaha WHERE petugas_email = $1 AND is_verified = TRUE',
         [req.session.user.email]
     );
->>>>>>> 45455c08ccd6130758bcd5a6ae24284f39b0b15e
     res.json({ total: result.rows[0].count });
 });
 
 app.get(['/api/wilayah', '/api/wilayah/:parent'], async (req, res) => {
     const parent = req.params.parent || '';
-<<<<<<< HEAD
-    const query = parent === '' ? `SELECT kode, nama FROM wilayah WHERE LENGTH(kode) <= 7 ORDER BY nama ASC` : `SELECT kode, nama FROM wilayah WHERE kode LIKE $1 AND kode != $2 ORDER BY nama ASC`;
-=======
     const query = parent === '' ?
         `SELECT kode, nama FROM wilayah WHERE LENGTH(kode) <= 7 ORDER BY nama ASC` :
         `SELECT kode, nama FROM wilayah WHERE kode LIKE $1 AND kode != $2 ORDER BY nama ASC`;
->>>>>>> 45455c08ccd6130758bcd5a6ae24284f39b0b15e
     const params = parent === '' ? [] : [parent + '%', parent];
     const { rows } = await pool.query(query, params);
     res.json(rows);
@@ -269,23 +231,19 @@ app.get('/api/usaha-pending/:kodeDesa', async (req, res) => {
             [kodeDesa, `%${search}%`, limit, offset]
         );
         const count = await pool.query(`SELECT COUNT(*) FROM lokasi_usaha WHERE kode_desa = $1 AND nama_usaha ILIKE $2`, [kodeDesa, `%${search}%`]);
-<<<<<<< HEAD
-        res.json({ data: data.rows, totalPages: Math.ceil(parseInt(count.rows[0].count) / limit), currentPage: page });
-=======
 
         res.json({
             data: data.rows,
             totalPages: Math.ceil(parseInt(count.rows[0].count) / limit),
             currentPage: page
         });
->>>>>>> 45455c08ccd6130758bcd5a6ae24284f39b0b15e
     } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
 app.post('/api/verifikasi', async (req, res) => {
     let { idsbr, lat, lng, status_usaha, is_new, nama_usaha, alamat_usaha, kode_desa } = req.body;
-    const uEmail = req.session.user.email;
-    const uNama = req.session.user.nama;
+    const petugas_email = req.session.user.email;
+    const petugas = req.session.user.nama;
     const allowedStatus = ['BARU', 'Aktif', 'Tidak Ditemukan', 'Tutup', 'Ganda'];
 
     try {
@@ -293,30 +251,13 @@ app.post('/api/verifikasi', async (req, res) => {
             // Paksa status BARU di backend
             await pool.query(
                 `INSERT INTO lokasi_usaha (idsbr, nama_usaha, alamat_usaha, kode_desa, latitude, longitude, is_verified, petugas_nama, petugas_email, status_usaha, waktu_verifikasi) 
-<<<<<<< HEAD
-                 VALUES ($1, $2, $3, $4, $5, $6, TRUE, $7, $8, 'BARU', NOW())`,
-                ['NEW-' + Date.now(), nama_usaha, alamat_usaha, kode_desa, lat, lng, uNama, uEmail]
-=======
                  VALUES ($1, $2, $3, $4, $5, $6, TRUE, $7, $8, $9, (NOW() AT TIME ZONE 'Asia/Jakarta'))`,
                 ['NEW-' + Date.now(), nama_usaha, alamat_usaha, kode_desa, lat, lng, petugas, petugas_email, status_usaha]
->>>>>>> 45455c08ccd6130758bcd5a6ae24284f39b0b15e
             );
         } else {
             if (!allowedStatus.includes(status_usaha)) return res.status(400).json({ message: 'Status tidak valid' });
 
             const check = await pool.query('SELECT is_verified, petugas_email FROM lokasi_usaha WHERE idsbr = $1', [idsbr]);
-<<<<<<< HEAD
-            if (check.rows.length === 0) return res.status(404).json({ message: 'Data tidak ditemukan' });
-            
-            // Validasi Ownership
-            if (check.rows[0].is_verified && check.rows[0].petugas_email !== uEmail) {
-                return res.status(403).json({ message: `Gagal! Data sudah dikunci petugas lain (${check.rows[0].petugas_email}).` });
-            }
-
-            await pool.query(
-                `UPDATE lokasi_usaha SET latitude=$1, longitude=$2, is_verified=TRUE, petugas_nama=$3, petugas_email=$4, status_usaha=$5, waktu_verifikasi=NOW() WHERE idsbr=$6`,
-                [lat, lng, uNama, uEmail, status_usaha, idsbr]
-=======
 
             // Cek apakah data dikunci (kecuali admin)
             if (check.rows[0].is_verified && check.rows[0].petugas_email !== petugas_email) {
@@ -328,11 +269,13 @@ app.post('/api/verifikasi', async (req, res) => {
             await pool.query(
                 `UPDATE lokasi_usaha SET latitude=$1, longitude=$2, is_verified=TRUE, petugas_nama=$3, petugas_email=$4, status_usaha=$5, waktu_verifikasi=(NOW() AT TIME ZONE 'Asia/Jakarta') WHERE idsbr=$6`,
                 [lat, lng, petugas, petugas_email, status_usaha, idsbr]
->>>>>>> 45455c08ccd6130758bcd5a6ae24284f39b0b15e
             );
         }
         res.json({ success: true });
-    } catch (err) { res.status(500).json({ message: 'Kesalahan sistem saat menyimpan.' }); }
+    } catch (err) {
+        console.error(err); 
+        res.status(500).json({ message: 'Kesalahan sistem saat menyimpan.' });
+    }
 });
 
 // --- JALANKAN SERVER ---
