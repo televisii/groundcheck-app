@@ -1,29 +1,26 @@
-const pool = require('./db'); // pastikan path ke db.js benar
+const pool = require('./db');
 const bcrypt = require('bcrypt');
 
 async function resetAdmin() {
-    const email = 'admin@desa.id';
-    const password = 'sehatselalu';
+    const email = 'admin@desa.id'; // Email khusus admin
+    const password = 'password123';
     const nama = 'Administrator Utama';
-    
+    const role = 'admin'; // <--- TAMBAHAN: Role Admin
+
     try {
         const saltRounds = 10;
         const hashedPassword = await bcrypt.hash(password, saltRounds);
-        
-        // Hapus jika sudah ada
+
         await pool.query('DELETE FROM users WHERE email = $1', [email]);
-        
-        // Input ulang
+
+        // Insert dengan Role
         await pool.query(
-            'INSERT INTO users (email, nama, password) VALUES ($1, $2, $3)',
-            [email, nama, hashedPassword]
+            'INSERT INTO users (email, nama, password, role) VALUES ($1, $2, $3, $4)',
+            [email, nama, hashedPassword, role]
         );
-        
+
         console.log('--- SUKSES ---');
-        console.log('User Admin berhasil diperbarui!');
-        console.log('Email: ' + email);
-        console.log('Pass : ' + password);
-        console.log('Hash di DB: ' + hashedPassword);
+        console.log(`User: ${email} | Role: ${role}`);
     } catch (err) {
         console.error('Gagal:', err);
     } finally {

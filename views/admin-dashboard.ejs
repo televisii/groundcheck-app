@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Admin - GC Pro</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f4f7f6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .btn-logout {
+            background: #d63031;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+
+        .card h3 {
+            margin: 0;
+            color: #636e72;
+            font-size: 14px;
+        }
+
+        .card .number {
+            font-size: 32px;
+            font-weight: bold;
+            color: #2d3436;
+            margin: 10px 0;
+        }
+
+        .table-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background: #f8f9fa;
+            color: #2d3436;
+        }
+
+        /* Gaya Tombol Export Excel */
+        .btn-export {
+            background: #107c41;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: bold;
+        }
+
+        /* Gaya Search & Pagination */
+        .toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .search-box {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 250px;
+        }
+
+        .btn-search {
+            padding: 8px 15px;
+            background: #0984e3;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+            align-items: center;
+        }
+
+        .page-link {
+            text-decoration: none;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            background: white;
+            color: #333;
+            border-radius: 5px;
+        }
+
+        .page-link.disabled {
+            background: #eee;
+            color: #aaa;
+            pointer-events: none;
+        }
+
+        .page-info {
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <div>
+                <h2 style="margin:0;">Dashboard Admin</h2>
+                <small>Halo, <%= user.nama %></small>
+            </div>
+            <div>
+                <a href="/logout" class="btn-logout">Logout</a>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="card">
+                <h3>Total Target Usaha</h3>
+                <div class="number">
+                    <%= stats.total %>
+                </div>
+            </div>
+            <div class="card">
+                <h3>Sudah Diverifikasi</h3>
+                <div class="number" style="color: #00b894;">
+                    <%= stats.verified %>
+                </div>
+            </div>
+            <div class="card">
+                <h3>Belum Diverifikasi</h3>
+                <div class="number" style="color: #d63031;">
+                    <%= stats.pending %>
+                </div>
+            </div>
+            <div class="card">
+                <h3>Progress</h3>
+                <div class="number">
+                    <%= stats.total> 0 ? Math.round((stats.verified / stats.total) * 100) : 0 %>%
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-bottom: 20px; text-align: right;">
+            <a href="/admin/export" class="btn-export">
+                <span>📊 Export Data</span>
+            </a>
+        </div>
+
+        <div class="table-container">
+            <div class="toolbar">
+                <h3 style="margin:0;">📊 Kinerja Petugas</h3>
+
+                <form action="/admin/dashboard" method="GET" style="display:flex; gap:5px;">
+                    <input type="text" name="search" class="search-box" placeholder="Cari nama petugas..."
+                        value="<%= pagination.search %>">
+                    <button type="submit" class="btn-search">Cari</button>
+                    <% if(pagination.search) { %>
+                        <a href="/admin/dashboard" class="btn-search"
+                            style="background:#636e72; text-decoration:none;">Reset</a>
+                        <% } %>
+                </form>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th width="50">No</th>
+                        <th>Nama Petugas</th>
+                        <th>Email</th>
+                        <th>Total Verifikasi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% if(leaderboard.length===0) { %>
+                        <tr>
+                            <td colspan="4" style="text-align:center; padding: 20px;">Tidak ada data ditemukan.</td>
+                        </tr>
+                        <% } %>
+
+                            <% leaderboard.forEach((row, index)=> { %>
+                                <tr>
+                                    <td>
+                                        <%= ((pagination.page - 1) * 10) + (index + 1) %>
+                                    </td>
+                                    <td><b>
+                                            <%= row.petugas_nama %>
+                                        </b></td>
+                                    <td>
+                                        <%= row.petugas_email %>
+                                    </td>
+                                    <td>
+                                        <span
+                                            style="background:#e6fffb; color:#00b894; padding:5px 10px; border-radius:15px; font-weight:bold;">
+                                            <%= row.total_kerja %> Usaha
+                                        </span>
+                                    </td>
+                                </tr>
+                                <% }); %>
+                </tbody>
+            </table>
+
+            <% if(pagination.totalPages> 1) { %>
+                <div class="pagination">
+                    <a href="/admin/dashboard?page=<%= pagination.page - 1 %>&search=<%= pagination.search %>"
+                        class="page-link <%= pagination.page === 1 ? 'disabled' : '' %>">Prev</a>
+
+                    <span class="page-info">Halaman <b>
+                            <%= pagination.page %>
+                        </b> dari <%= pagination.totalPages %></span>
+
+                    <a href="/admin/dashboard?page=<%= pagination.page + 1 %>&search=<%= pagination.search %>"
+                        class="page-link <%= pagination.page === pagination.totalPages ? 'disabled' : '' %>">Next</a>
+                </div>
+                <% } %>
+        </div>
+    </div>
+</body>
+
+</html>
