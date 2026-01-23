@@ -52,12 +52,22 @@
             margin-bottom: 12px;
         }
 
+        /* Stats Label */
         .stats-label {
             font-size: 11px;
             color: #636e72;
             background: #f1f2f6;
-            padding: 4px 10px;
+            padding: 6px 12px;
             border-radius: 20px;
+            cursor: pointer;
+            transition: 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .stats-label:hover {
+            background: #dfe6e9;
+            border-color: #b2bec3;
+            color: var(--accent);
         }
 
         /* Input & Validation */
@@ -250,7 +260,7 @@
         }
 
         /* Modal & Loader */
-        #update-panel {
+        .modal-overlay {
             display: none;
             position: fixed;
             top: 0;
@@ -272,6 +282,25 @@
             border-radius: 20px;
             padding: 25px;
             box-sizing: border-box;
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+
+        /* [MODIFIKASI CSS] Agar Header Riwayat Diam (Sticky) */
+        #history-panel .modal-content {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            /* Matikan scroll di container utama */
+        }
+
+        /* List Riwayat Scrollable */
+        #history-list {
+            flex-grow: 1;
+            overflow-y: auto;
+            /* Scroll hanya di area list */
+            min-height: 0;
+            /* Fix untuk flexbox scroll */
         }
 
         .swal2-container {
@@ -304,7 +333,7 @@
             }
         }
 
-        /* [FITUR LOKASI] Style Tombol Lokasi */
+        /* Tombol Lokasi */
         .btn-location {
             background: #00b894;
             color: white;
@@ -331,6 +360,64 @@
             background: #b2bec3;
             cursor: not-allowed;
         }
+
+        /* Style Riwayat */
+        .history-item {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .history-item:last-child {
+            border-bottom: none;
+        }
+
+        .h-info b {
+            font-size: 13px;
+            color: #2d3436;
+            display: block;
+        }
+
+        .h-info span {
+            font-size: 11px;
+            color: #636e72;
+        }
+
+        .h-time {
+            font-size: 10px;
+            color: #b2bec3;
+            text-align: right;
+            min-width: 60px;
+        }
+
+        /* Close Button Bulat */
+        .btn-close-circle {
+            cursor: pointer;
+            font-size: 20px;
+            background: #f1f2f6;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            color: #636e72;
+            transition: 0.2s;
+        }
+
+        .btn-close-circle:hover {
+            background: #dfe6e9;
+            color: #2d3436;
+        }
+
+        /* Fix Leaflet Layer Control Z-Index */
+        .leaflet-control-layers {
+            border-radius: 8px !important;
+            border: 1px solid #ddd !important;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1) !important;
+        }
     </style>
 </head>
 
@@ -342,86 +429,120 @@
                 <div>
                     <h2 style="margin:0; font-size:16px;">
                         <%= user.nama %>
+
                     </h2>
-                    <div class="stats-label">Selesai: <b id="user-count">0</b></div>
+                    <div class="stats-label" onclick="showHistory()" title="Klik untuk lihat riwayat">
+                        Selesai: <b id="user-count">0</b> 📜
+                    </div>
+
                 </div>
                 <a href="/logout"
                     style="font-size: 11px; color: var(--danger); text-decoration: none; font-weight: bold; border: 1px solid var(--danger); padding: 4px 10px; border-radius: 6px;">LOGOUT</a>
             </div>
             <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+
                 <select id="kec" class="input-minimal" onchange="loadWilayah('kec', 'desa')">
                     <option value="">Kecamatan</option>
                 </select>
                 <select id="desa" class="input-minimal" onchange="onDesaChange()">
                     <option value="">Desa</option>
                 </select>
+
             </div>
             <div id="search-area" style="display:none;"><input type="text" id="search" class="input-minimal"
                     placeholder="Cari nama usaha..." oninput="debounceSearch()"></div>
         </div>
 
         <div id="loader">
-            <div class="spinner"></div><span style="font-size: 12px; color: #636e72;">Memuat data...</span>
+            <div class="spinner"></div><span style="font-size: 12px;
+ color: #636e72;">Memuat data...</span>
         </div>
         <div id="list-container" class="list-container"></div>
 
         <div class="pagination-sticky" id="pagination-area">
             <button onclick="changePage(-1)" id="btn-prev" class="btn-pagi">Sebelumnya</button>
-            <span id="page-info" style="font-size:12px; font-weight: bold; color: var(--primary);">Halaman 1</span>
+            <span id="page-info" style="font-size:12px;
+ font-weight: bold; color: var(--primary);">Halaman 1</span>
             <button onclick="changePage(1)" id="btn-next" class="btn-pagi">Selanjutnya</button>
         </div>
 
-        <button class="fab-add" id="fab-tambah" onclick="openModal(null, true)">+</button>
     </div>
 
-    <div id="update-panel">
+    <div id="update-panel" class="modal-overlay">
         <div class="modal-content">
-            <h3 id="m-title" style="margin-top:0; font-size: 18px;">Update Data</h3>
-
-            <div id="m-info-view">
-                <b id="u-nama" style="color: var(--accent);"></b><br>
-                <span id="u-alamat" style="font-size:12px; color: #636e72;"></span>
-            </div>
-
+            <h3 id="m-title" style="margin-top:0;
+ font-size: 18px;">Update Data</h3>
+            <div id="m-info-view"><b id="u-nama" style="color: var(--accent);"></b><br><span id="u-alamat" style="font-size:12px;
+ color: #636e72;"></span></div>
             <div id="m-info-input" style="display:none;">
                 <input type="text" id="in-nama" class="input-minimal" placeholder="Nama Usaha">
                 <input type="text" id="in-alamat" class="input-minimal" placeholder="Alamat Lengkap">
             </div>
 
-            <div id="map" style="height:170px; margin:15px 0; border-radius:12px; border:1px solid #ddd;"></div>
+            <div id="map" style="height:170px;
+ margin:15px 0; border-radius:12px; border:1px solid #ddd;"></div>
 
             <button onclick="getCurrentLocation()" class="btn-location" type="button">📍 AMBIL LOKASI SAYA</button>
 
-            <div style="display:flex; gap:10px;">
-                <input type="number" id="lat" class="input-minimal" placeholder="Lat" step="any">
-                <input type="number" id="lng" class="input-minimal" placeholder="Lng" step="any">
+            <div style="display:flex;
+ gap:10px;">
+                <input type="number" id="lat" class="input-minimal" placeholder="Lat" step="any"
+                    oninput="updateMarkerFromInput()">
+                <input type="number" id="lng" class="input-minimal" placeholder="Lng" step="any"
+                    oninput="updateMarkerFromInput()">
             </div>
 
             <select id="status" class="input-minimal">
                 <option value="" disabled selected>Pilih Status</option>
-                <option value="BARU" style="display:none;">BARU</option>
                 <option value="Aktif">Aktif</option>
                 <option value="Tidak Ditemukan">Tidak Ditemukan</option>
                 <option value="Tutup">Tutup</option>
                 <option value="Ganda">Ganda</option>
-            </select>
 
-            <button onclick="saveData()"
-                style="background:var(--accent); color:white; border:none; padding:14px; border-radius:10px; font-weight:bold; width:100%; cursor:pointer;">SIMPAN
+            </select>
+            <button onclick="saveData()" style="background:var(--accent);
+ color:white; border:none; padding:14px; border-radius:10px; font-weight:bold; width:100%; cursor:pointer;">SIMPAN
                 DATA</button>
-            <button onclick="closeModal()" class="btn-pagi" style="width:100%; margin-top:8px;">BATAL</button>
+            <button onclick="closeModal()" class="btn-pagi" style="width:100%;
+ margin-top:8px;">BATAL</button>
+        </div>
+    </div>
+
+    <div id="history-panel" class="modal-overlay">
+        <div class="modal-content">
+            <div
+                style="display:flex;
+ justify-content:space-between; align-items:center; border-bottom:1px solid #eee; padding-bottom:10px; margin-bottom:10px;">
+                <div>
+                    <h3 style="margin:0;
+ font-size: 18px;">Riwayat Kerja</h3>
+                    <small style="color:#636e72;">50 Verifikasi Terakhir</small>
+                </div>
+                <div onclick="document.getElementById('history-panel').style.display='none'" class="btn-close-circle">
+                    &times;
+                </div>
+
+            </div>
+
+            <div id="history-list">
+                <div style="text-align:center;
+ padding:20px; color:#b2bec3;">Memuat...</div>
+            </div>
+
+            <button onclick="document.getElementById('history-panel').style.display='none'" class="btn-pagi" style="width:100%;
+ margin-top:15px;">TUTUP</button>
         </div>
     </div>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
         let map, marker, selectedIdsbr, isNewMode = false, searchTimer, currentPage = 1, totalPages = 1;
-        const myEmail = "<%= user.email %>"; // Ambil email dari session
+        const myEmail = "<%= user.email %>";
 
-        // Reset Style Error saat mengetik
         document.querySelectorAll('.input-minimal').forEach(input => {
             input.addEventListener('input', () => input.classList.remove('input-error'));
             input.addEventListener('change', () => input.classList.remove('input-error'));
+
         });
 
         async function updateStats() {
@@ -430,6 +551,40 @@
                 const data = await res.json();
                 document.getElementById('user-count').innerText = data.total;
             } catch (e) { }
+        }
+
+        async function showHistory() {
+            document.getElementById('history-panel').style.display = 'block';
+            const container = document.getElementById('history-list');
+            container.innerHTML = '<div style="text-align:center; padding:20px;"><div class="spinner"></div></div>';
+
+            try {
+                const res = await fetch('/api/riwayat-saya');
+                const data = await res.json();
+
+                if (data.length === 0) {
+                    container.innerHTML = '<div style="text-align:center; padding:20px; color:#636e72;">Belum ada data diverifikasi.</div>';
+                    return;
+                }
+
+                let html = '';
+                data.forEach(item => {
+                    html += `
+                    <div class="history-item">
+                        <div class="h-info">
+                            <b>${item.nama_usaha}</b>
+  
+                           <span>${item.status_usaha} • ${item.alamat_usaha}</span>
+                        </div>
+                        <div class="h-time">${item.waktu}</div>
+                    </div>
+   
+              `;
+                });
+                container.innerHTML = html;
+            } catch (e) {
+                container.innerHTML = '<div style="text-align:center; color:red;">Gagal memuat riwayat.</div>';
+            }
         }
 
         async function loadWilayah(cur, next) {
@@ -444,11 +599,17 @@
         function onDesaChange() {
             const val = document.getElementById('desa').value;
             document.getElementById('search-area').style.display = val ? 'block' : 'none';
-            document.getElementById('fab-tambah').style.display = val ? 'flex' : 'none';
-            if (val) { currentPage = 1; loadUsaha(); }
+            // LOGIC TOMBOL FAB DIHAPUS DARI SINI
+            if (val) {
+                currentPage = 1;
+                loadUsaha();
+            }
         }
 
-        function debounceSearch() { clearTimeout(searchTimer); searchTimer = setTimeout(() => { currentPage = 1; loadUsaha(); }, 500); }
+        function debounceSearch() {
+            clearTimeout(searchTimer);
+            searchTimer = setTimeout(() => { currentPage = 1; loadUsaha(); }, 500);
+        }
 
         async function loadUsaha() {
             const desa = document.getElementById('desa').value;
@@ -458,7 +619,6 @@
 
             list.style.display = 'none';
             loader.style.display = 'block';
-
             try {
                 const res = await fetch(`/api/usaha-pending/${desa}?search=${q}&page=${currentPage}`);
                 const result = await res.json();
@@ -475,18 +635,24 @@
                     const isMine = u.petugas_email === myEmail;
                     div.className = `card-item ${u.is_verified ? (isMine ? 'done editable' : 'done') : 'pending'}`;
 
+
                     const statusClass = u.status_usaha ? 'status-' + u.status_usaha.toLowerCase().replace(/\s/g, '-') : '';
                     const badge = u.is_verified ? `<div class="badge-status ${statusClass}">${u.status_usaha}</div>` : `<div class="badge-status" style="color:#636e72; background:#f1f2f6;">BELUM GC</div>`;
 
                     div.innerHTML = `
                     ${badge}
-                    <b>${u.nama_usaha}</b>
+             
+        <b>${u.nama_usaha}</b>
                     <span class="alamat-text">${u.alamat_usaha || '-'}</span>
                     <span class="idsbr-tag">ID: ${u.idsbr}</span>
                     ${u.is_verified ? `<span class="petugas-info">Oleh: ${u.petugas_email}</span>` : ''}
                 `;
 
-                    div.onclick = () => { if (u.is_verified && !isMine) Swal.fire({ title: 'Terkunci', text: 'Data milik petugas lain.', icon: 'info' }); else openModal(u, false); };
+
+                    div.onclick = () => {
+                        if (u.is_verified && !isMine) Swal.fire({ title: 'Terkunci', text: 'Data milik petugas lain.', icon: 'info' });
+                        else openModal(u, false);
+                    };
                     list.appendChild(div);
                 });
             } catch (e) {
@@ -499,39 +665,37 @@
 
         function changePage(dir) {
             if ((dir === -1 && currentPage > 1) || (dir === 1 && currentPage < totalPages)) {
-                currentPage += dir; loadUsaha(); window.scrollTo(0, 0);
+                currentPage += dir;
+                loadUsaha(); window.scrollTo(0, 0);
             }
         }
 
-        // [FITUR LOKASI] Fungsi Deteksi GPS
         function getCurrentLocation() {
             if (navigator.geolocation) {
                 const btn = document.querySelector('.btn-location');
                 const oldText = btn.innerHTML;
                 btn.innerHTML = '⏳ Sedang mencari...';
                 btn.disabled = true;
-
                 navigator.geolocation.getCurrentPosition(
                     (position) => {
                         const lat = position.coords.latitude;
                         const lng = position.coords.longitude;
 
                         setMarker(lat, lng);
-
                         btn.innerHTML = oldText;
                         btn.disabled = false;
                         Swal.fire({ icon: 'success', title: 'Lokasi ditemukan!', toast: true, position: 'top-end', showConfirmButton: false, timer: 1500 });
+
                     },
                     (error) => {
                         btn.innerHTML = oldText;
                         btn.disabled = false;
 
-                        // Fallback Default jika GPS Gagal
                         setMarker(-6.17, 106.82);
-
                         let msg = 'Gagal mengambil lokasi.';
                         if (error.code == 1) msg = 'GPS Ditolak. Izinkan akses lokasi di browser.';
-                        else if (error.code == 2) msg = 'Sinyal GPS lemah.';
+                        else
+                            if (error.code == 2) msg = 'Sinyal GPS lemah.';
                         Swal.fire('GPS Error', msg, 'error');
                     },
                     { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
@@ -548,41 +712,54 @@
             const st = document.getElementById('status');
             document.querySelectorAll('.input-minimal').forEach(el => el.classList.remove('input-error'));
             document.getElementById('update-panel').style.display = 'block';
-
             if (isNew) {
-                // MODE TAMBAH BARU
                 document.getElementById('m-title').innerText = "Tambah Baru";
                 document.getElementById('m-info-view').style.display = 'none';
                 document.getElementById('m-info-input').style.display = 'block';
                 st.value = "BARU"; st.disabled = true;
                 document.getElementById('in-nama').value = ""; document.getElementById('in-alamat').value = "";
             } else {
-                // MODE EDIT
                 document.getElementById('m-title').innerText = "Update Usaha";
                 document.getElementById('m-info-view').style.display = 'block';
                 document.getElementById('m-info-input').style.display = 'none';
                 document.getElementById('u-nama').innerText = u.nama_usaha;
                 document.getElementById('u-alamat').innerText = u.alamat_usaha;
-                st.value = u.status_usaha || ""; st.disabled = (u.status_usaha === "BARU");
+                st.value = u.status_usaha || "";
+                st.disabled = (u.status_usaha === "BARU");
             }
 
-            // Inisialisasi Map (Hanya sekali)
             if (!map) {
-                map = L.map('map', { zoomControl: false }).setView([0, 0], 13);
-                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+                const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+                const googleHybrid = L.tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}',
+                    { maxZoom: 20, subdomains: ['mt0', 'mt1', 'mt2', 'mt3'] });
+                map = L.map('map', { zoomControl: false, layers: [googleHybrid] }).setView([0, 0], 13);
+
+                const baseMaps = { "Satelit": googleHybrid, "Peta": osmLayer };
+                L.control.layers(baseMaps).addTo(map);
             }
 
-            // Fix tampilan map (agar tidak abu-abu sebagian)
             setTimeout(() => { map.invalidateSize(); }, 100);
-
             const lat = (!isNew && u.latitude) ? parseFloat(u.latitude) : null;
             const lng = (!isNew && u.longitude) ? parseFloat(u.longitude) : null;
-
             if (lat && lng) {
                 setMarker(lat, lng);
             } else {
-                // [FITUR LOKASI] Auto-detect jika data belum punya koordinat
                 getCurrentLocation();
+            }
+        }
+
+        // [FITUR BARU] Update Marker dari Input Manual
+        function updateMarkerFromInput() {
+            const lat = parseFloat(document.getElementById('lat').value);
+            const lng = parseFloat(document.getElementById('lng').value);
+            if (!isNaN(lat) && !isNaN(lng)) {
+                if (marker) {
+                    const newLatLng = new L.LatLng(lat, lng);
+                    marker.setLatLng(newLatLng);
+                    map.panTo(newLatLng); // Geser peta ke marker
+                } else {
+                    setMarker(lat, lng);
+                }
             }
         }
 
@@ -600,32 +777,43 @@
             const s = document.getElementById('status'), lt = document.getElementById('lat'), ln = document.getElementById('lng'), n = document.getElementById('in-nama'), a = document.getElementById('in-alamat');
             let valid = true;
 
-            if (!s.value) { s.classList.add('input-error'); valid = false; }
-            if (!lt.value) { lt.classList.add('input-error'); valid = false; }
-            if (!ln.value) { ln.classList.add('input-error'); valid = false; }
+            if (!s.value) {
+                s.classList.add('input-error'); valid = false;
+            }
+            if (!lt.value) {
+                lt.classList.add('input-error'); valid = false;
+            }
+            if (!ln.value) {
+                ln.classList.add('input-error'); valid = false;
+            }
             if (isNewMode) {
-                if (!n.value) { n.classList.add('input-error'); valid = false; }
-                if (!a.value) { a.classList.add('input-error'); valid = false; }
+                if (!n.value) {
+                    n.classList.add('input-error');
+                    valid = false;
+                }
+                if (!a.value) {
+                    a.classList.add('input-error');
+                    valid = false;
+                }
             }
 
             if (!valid) return Swal.fire('Error', 'Lengkapi kolom merah!', 'warning');
-
             Swal.fire({ title: 'Menyimpan...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
-
-            // [PERBAIKAN] Menyertakan Nama & Email Petugas dalam payload
             const body = {
                 idsbr: selectedIdsbr,
                 lat: lt.value,
                 lng: ln.value,
                 status_usaha: s.value,
-                petugas: "<%= user.nama %>",   // Diambil dari server-side EJS
-                petugas_email: myEmail,         // Diambil dari variabel JS
+                petugas: "<%= user.nama %>",
+
+                petugas_email: myEmail,
                 is_new: isNewMode,
                 kode_desa: document.getElementById('desa').value,
-                nama_usaha: isNewMode ? n.value : null,
-                alamat_usaha: isNewMode ? a.value : null
+                nama_usaha: isNewMode ?
+                    n.value : null,
+                alamat_usaha: isNewMode ?
+                    a.value : null
             };
-
             try {
                 const res = await fetch('/api/verifikasi', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
                 const result = await res.json();
@@ -636,10 +824,14 @@
                     Swal.fire('Gagal', result.message, 'error');
                     if (res.status === 403) { closeModal(); loadUsaha(); }
                 }
-            } catch (e) { Swal.fire('Error', 'Masalah Jaringan', 'error'); }
+            } catch (e) {
+                Swal.fire('Error', 'Masalah Jaringan', 'error');
+            }
         }
 
-        function closeModal() { document.getElementById('update-panel').style.display = 'none'; }
+        function closeModal() {
+            document.getElementById('update-panel').style.display = 'none';
+        }
         window.onload = () => { loadWilayah('kec', 'kec'); updateStats(); };
     </script>
 </body>

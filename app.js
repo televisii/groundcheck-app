@@ -46,17 +46,18 @@ const checkAdmin = (req, res, next) => {
 
 app.get('/login', (req, res) => res.render('login'));
 
+// UPDATE Login dengan Email Case-Insensitive
 app.post('/api/login', async (req, res) => {
     const { email, password } = req.body;
     try {
-        const result = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
+        const result = await pool.query('SELECT * FROM users WHERE LOWER(email) = LOWER($1)', [email]);
 
         if (result.rows.length > 0) {
             const user = result.rows[0];
             const match = await bcrypt.compare(password, user.password);
 
             if (match) {
-                // Simpan user & role ke session
+                // Simpan data penting ke session
                 req.session.user = {
                     id: user.id,
                     nama: user.nama,
@@ -91,22 +92,20 @@ app.get('/', checkAuth, (req, res) => {
 
 // --- FITUR KHUSUS ADMIN ---
 
-// 1. Dashboard Monitoring (Dengan Search & Pagination)
+// 1. Dashboard Monitoring (Update: Support AJAX/Real-time)
 app.get('/admin/dashboard', checkAuth, checkAdmin, async (req, res) => {
     try {
-        // Ambil parameter dari URL (default page 1, search kosong)
         const search = req.query.search || '';
         const page = parseInt(req.query.page) || 1;
-        const limit = 10; // Batas per halaman
+        const limit = 10;
         const offset = (page - 1) * limit;
 
-        // A. Statistik Global (Kartu Atas)
+        // A. Statistik Global (Tetap)
         const totalUsaha = await pool.query('SELECT COUNT(*) FROM lokasi_usaha');
         const sudahVerif = await pool.query('SELECT COUNT(*) FROM lokasi_usaha WHERE is_verified = TRUE');
         const belumVerif = await pool.query('SELECT COUNT(*) FROM lokasi_usaha WHERE is_verified = FALSE');
 
-        // B. Leaderboard Petugas (Tabel Bawah)
-        // Query untuk menghitung kinerja per petugas
+        // B. Leaderboard Data
         const queryLeaderboard = `
             SELECT petugas_nama, petugas_email, COUNT(*) as total_kerja 
             FROM lokasi_usaha 
@@ -115,17 +114,21 @@ app.get('/admin/dashboard', checkAuth, checkAdmin, async (req, res) => {
             ORDER BY total_kerja DESC
         `;
 
-        // Jalankan query dengan filter nama
         const allResult = await pool.query(queryLeaderboard, [`%${search}%`]);
-
-        // Hitung total data untuk pagination
         const totalData = allResult.rows.length;
         const totalPages = Math.ceil(totalData / limit);
-
-        // Potong data sesuai halaman (Slicing)
         const paginatedData = allResult.rows.slice(offset, offset + limit);
 
-        // Render halaman
+        // --- [BAGIAN BARU] CEK REQUEST AJAX ---
+        // Jika request datang dari ketikan pencarian (background), kirim JSON saja
+        if (req.query.ajax) {
+            return res.json({
+                leaderboard: paginatedData,
+                pagination: { page, totalPages, search }
+            });
+        }
+        // --------------------------------------
+
         res.render('admin-dashboard', {
             user: req.session.user,
             stats: {
@@ -133,12 +136,8 @@ app.get('/admin/dashboard', checkAuth, checkAdmin, async (req, res) => {
                 verified: parseInt(sudahVerif.rows[0].count),
                 pending: parseInt(belumVerif.rows[0].count)
             },
-            leaderboard: paginatedData, // Data yang sudah dipotong
-            pagination: {
-                page: page,
-                totalPages: totalPages,
-                search: search
-            }
+            leaderboard: paginatedData,
+            pagination: { page, totalPages, search }
         });
 
     } catch (err) {
@@ -146,13 +145,32 @@ app.get('/admin/dashboard', checkAuth, checkAdmin, async (req, res) => {
     }
 });
 
+// API: Ambil Riwayat Verifikasi Petugas (Limit 50 Terakhir)
+app.get('/api/riwayat-saya', checkAuth, async (req, res) => {
+    try {
+        const result = await pool.query(`
+            SELECT idsbr, nama_usaha, alamat_usaha, status_usaha, 
+                   TO_CHAR(waktu_verifikasi, 'DD Mon HH24:MI') as waktu
+            FROM lokasi_usaha 
+            WHERE petugas_email = $1 AND is_verified = TRUE 
+            ORDER BY waktu_verifikasi DESC 
+            LIMIT 50
+        `, [req.session.user.email]);
+
+        res.json(result.rows);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+
 // 2. Export Data ke Excel (.xlsx)
 app.get('/admin/export', checkAuth, checkAdmin, async (req, res) => {
     try {
         // PERBAIKAN: Gunakan TO_CHAR agar waktu terkunci sebagai Teks (tidak diubah ExcelJS)
         const result = await pool.query(`
             SELECT idsbr, nama_usaha, alamat_usaha, status_usaha, 
-                   latitude, longitude, petugas_nama, petugas_email, 
+                   latitude, longitude, petugas_nama, kode_desa, petugas_email, 
                    TO_CHAR(waktu_verifikasi, 'DD/MM/YYYY HH24:MI:SS') as waktu_fix 
             FROM lokasi_usaha 
             WHERE is_verified = TRUE
@@ -165,7 +183,7 @@ app.get('/admin/export', checkAuth, checkAdmin, async (req, res) => {
 
         // Setup Header Kolom
         worksheet.columns = [
-            { header: 'IDSBR', key: 'idsbr', width: 20 },
+            { header: 'IDSBR', key: 'idsbr', width: 15 },
             { header: 'Nama Usaha', key: 'nama_usaha', width: 35 },
             { header: 'Alamat', key: 'alamat_usaha', width: 50 },
             { header: 'Status', key: 'status_usaha', width: 15 },
@@ -174,6 +192,7 @@ app.get('/admin/export', checkAuth, checkAdmin, async (req, res) => {
             { header: 'Nama Petugas', key: 'petugas_nama', width: 25 },
             { header: 'Email Petugas', key: 'petugas_email', width: 30 },
             { header: 'Waktu Verifikasi', key: 'waktu_fix', width: 25 },
+            { header: 'Kode Desa', key: 'kode_desa', width: 15 },
         ];
 
         // Style Header (Bold)

@@ -87,7 +87,6 @@
             color: #2d3436;
         }
 
-        /* Gaya Tombol Export Excel */
         .btn-export {
             background: #107c41;
             color: white;
@@ -102,7 +101,7 @@
             font-weight: bold;
         }
 
-        /* Gaya Search & Pagination */
+        /* Search Bar Baru */
         .toolbar {
             display: flex;
             justify-content: space-between;
@@ -113,19 +112,18 @@
         }
 
         .search-box {
-            padding: 8px 12px;
+            padding: 10px 15px;
             border: 1px solid #ddd;
-            border-radius: 5px;
-            width: 250px;
+            border-radius: 20px;
+            width: 300px;
+            outline: none;
+            transition: 0.3s;
+            background: #fff url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%23999" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>') no-repeat 95% center;
         }
 
-        .btn-search {
-            padding: 8px 15px;
-            background: #0984e3;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
+        .search-box:focus {
+            border-color: #0984e3;
+            box-shadow: 0 0 5px rgba(9, 132, 227, 0.2);
         }
 
         .pagination {
@@ -143,17 +141,13 @@
             background: white;
             color: #333;
             border-radius: 5px;
+            cursor: pointer;
         }
 
         .page-link.disabled {
             background: #eee;
             color: #aaa;
             pointer-events: none;
-        }
-
-        .page-info {
-            font-size: 14px;
-            color: #666;
         }
     </style>
 </head>
@@ -199,7 +193,7 @@
 
         <div style="margin-bottom: 20px; text-align: right;">
             <a href="/admin/export" class="btn-export">
-                <span>📊 Export Data</span>
+                <span>📊 Export Data </span>
             </a>
         </div>
 
@@ -207,15 +201,8 @@
             <div class="toolbar">
                 <h3 style="margin:0;">📊 Kinerja Petugas</h3>
 
-                <form action="/admin/dashboard" method="GET" style="display:flex; gap:5px;">
-                    <input type="text" name="search" class="search-box" placeholder="Cari nama petugas..."
-                        value="<%= pagination.search %>">
-                    <button type="submit" class="btn-search">Cari</button>
-                    <% if(pagination.search) { %>
-                        <a href="/admin/dashboard" class="btn-search"
-                            style="background:#636e72; text-decoration:none;">Reset</a>
-                        <% } %>
-                </form>
+                <input type="text" id="searchInput" class="search-box" placeholder="Ketik nama petugas..."
+                    value="<%= pagination.search %>" oninput="debounceSearch()">
             </div>
 
             <table>
@@ -227,7 +214,7 @@
                         <th>Total Verifikasi</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="tbody-petugas">
                     <% if(leaderboard.length===0) { %>
                         <tr>
                             <td colspan="4" style="text-align:center; padding: 20px;">Tidak ada data ditemukan.</td>
@@ -256,8 +243,8 @@
                 </tbody>
             </table>
 
-            <% if(pagination.totalPages> 1) { %>
-                <div class="pagination">
+            <div class="pagination" id="pagination-container">
+                <% if(pagination.totalPages> 1) { %>
                     <a href="/admin/dashboard?page=<%= pagination.page - 1 %>&search=<%= pagination.search %>"
                         class="page-link <%= pagination.page === 1 ? 'disabled' : '' %>">Prev</a>
 
@@ -267,10 +254,90 @@
 
                     <a href="/admin/dashboard?page=<%= pagination.page + 1 %>&search=<%= pagination.search %>"
                         class="page-link <%= pagination.page === pagination.totalPages ? 'disabled' : '' %>">Next</a>
-                </div>
-                <% } %>
+                    <% } %>
+            </div>
         </div>
     </div>
+
+    <script>
+        let searchTimeout = null;
+
+        // Fungsi ini dipanggil setiap kali user mengetik
+        function debounceSearch() {
+            // Hapus timer sebelumnya (biar gak request setiap milidetik)
+            clearTimeout(searchTimeout);
+
+            // Tunggu 500ms setelah user BERHENTI mengetik, baru request ke server
+            searchTimeout = setTimeout(() => {
+                fetchData(1); // Reset ke halaman 1 saat mencari
+            }, 500);
+        }
+
+        async function fetchData(page) {
+            const query = document.getElementById('searchInput').value;
+
+            // Ubah URL browser tanpa refresh (biar kalau di-refresh tetap di pencarian tsb)
+            const newUrl = `/admin/dashboard?page=${page}&search=${query}`;
+            window.history.pushState({ path: newUrl }, '', newUrl);
+
+            // Request Data ke Server (AJAX)
+            try {
+                const res = await fetch(newUrl + '&ajax=true'); // Tambahkan flag ajax
+                const data = await res.json();
+
+                renderTable(data);
+            } catch (err) {
+                console.error("Gagal mengambil data:", err);
+            }
+        }
+
+        function renderTable(data) {
+            const tbody = document.getElementById('tbody-petugas');
+            const pagiContainer = document.getElementById('pagination-container');
+            const list = data.leaderboard;
+            const pagi = data.pagination;
+
+            // 1. Render Tabel
+            let html = '';
+            if (list.length === 0) {
+                html = '<tr><td colspan="4" style="text-align:center; padding: 20px;">Tidak ada data ditemukan.</td></tr>';
+            } else {
+                list.forEach((row, index) => {
+                    const no = ((pagi.page - 1) * 10) + (index + 1);
+                    html += `
+                        <tr>
+                            <td>${no}</td>
+                            <td><b>${row.petugas_nama}</b></td>
+                            <td>${row.petugas_email}</td>
+                            <td>
+                                <span style="background:#e6fffb; color:#00b894; padding:5px 10px; border-radius:15px; font-weight:bold;">
+                                    ${row.total_kerja} Usaha
+                                </span>
+                            </td>
+                        </tr>
+                    `;
+                });
+            }
+            tbody.innerHTML = html;
+
+            // 2. Render Pagination
+            let pagiHtml = '';
+            if (pagi.totalPages > 1) {
+                // Tombol Prev
+                const prevDisabled = pagi.page === 1 ? 'disabled' : '';
+                // Kita pakai onclick="fetchData(...)" biar pagination juga gak refresh halaman
+                pagiHtml += `<a href="javascript:void(0)" onclick="fetchData(${pagi.page - 1})" class="page-link ${prevDisabled}">Prev</a>`;
+
+                // Info Halaman
+                pagiHtml += `<span class="page-info" style="margin: 0 10px;">Halaman <b>${pagi.page}</b> dari ${pagi.totalPages}</span>`;
+
+                // Tombol Next
+                const nextDisabled = pagi.page === pagi.totalPages ? 'disabled' : '';
+                pagiHtml += `<a href="javascript:void(0)" onclick="fetchData(${pagi.page + 1})" class="page-link ${nextDisabled}">Next</a>`;
+            }
+            pagiContainer.innerHTML = pagiHtml;
+        }
+    </script>
 </body>
 
 </html>
