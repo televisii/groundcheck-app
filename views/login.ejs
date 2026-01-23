@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - GC Pro</title>
+
     <style>
         :root {
             --primary: #2d3436;
@@ -12,8 +13,12 @@
             --danger: #d63031;
         }
 
+        * {
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: -apple-system, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
             background: #e9ecef;
             display: flex;
             justify-content: center;
@@ -39,7 +44,6 @@
             margin-bottom: 25px;
         }
 
-        /* Error Box Style */
         #error-box {
             display: none;
             background: #fff5f5;
@@ -87,20 +91,27 @@
             padding: 14px;
             border: 1px solid #ddd;
             border-radius: 10px;
-            box-sizing: border-box;
             outline: none;
-            transition: 0.3s;
             font-size: 15px;
             background: #f8f9fa;
+            transition: 0.25s;
         }
 
         input:focus {
             border-color: var(--accent);
-            background: white;
+            background: #ffffff;
             box-shadow: 0 0 0 3px rgba(9, 132, 227, 0.1);
         }
 
-        /* Hide/Show Password Wrapper */
+        input::placeholder {
+            opacity: 1;
+            transition: opacity 0.2s ease;
+        }
+
+        input:focus::placeholder {
+            opacity: 0;
+        }
+
         .password-wrapper {
             position: relative;
         }
@@ -113,10 +124,11 @@
             cursor: pointer;
             color: var(--accent);
             font-size: 11px;
-            user-select: none;
             font-weight: bold;
+            user-select: none;
             padding: 5px;
         }
+
 
         .btn-login {
             width: 100%;
@@ -133,7 +145,7 @@
         }
 
         .btn-login:active {
-            transform: scale(0.98);
+            transform: scale(0.97);
         }
 
         .btn-login:disabled {
@@ -165,7 +177,9 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn-login" id="btn-submit">MASUK</button>
+            <button type="submit" class="btn-login" id="btn-submit">
+                MASUK
+            </button>
         </form>
     </div>
 
@@ -176,18 +190,15 @@
         const passwordInput = document.getElementById('password');
         const togglePassword = document.getElementById('togglePassword');
 
-        // Toggle Visibility
         togglePassword.onclick = () => {
-            const isPwd = passwordInput.type === 'password';
-            passwordInput.type = isPwd ? 'text' : 'password';
-            togglePassword.textContent = isPwd ? 'SEMBUNYI' : 'LIHAT';
+            const isPassword = passwordInput.type === 'password';
+            passwordInput.type = isPassword ? 'text' : 'password';
+            togglePassword.textContent = isPassword ? 'SEMBUNYI' : 'LIHAT';
         };
 
-
         loginForm.onsubmit = async (e) => {
-            e.preventDefault(); // Mencegah reload halaman
+            e.preventDefault();
 
-            // Reset Error & Loading State
             errorBox.style.display = 'none';
             btnSubmit.disabled = true;
             btnSubmit.innerText = 'MENGHUBUNGKAN...';
@@ -207,24 +218,21 @@
                 if (res.ok && data.success) {
                     window.location.href = '/';
                 } else {
-                    showError(data.message || 'Email atau Password salah!');
+                    showError(data.message || 'Email atau password salah!');
                 }
             } catch (err) {
-                showError('Server tidak merespons. Periksa koneksi internet.');
+                showError('Server tidak merespons. Coba lagi nanti.');
             } finally {
-                if (!window.location.href.endsWith('/')) {
-                    btnSubmit.disabled = false;
-                    btnSubmit.innerText = 'MASUK KE DASHBOARD';
-                }
+                btnSubmit.disabled = false;
+                btnSubmit.innerText = 'MASUK';
             }
         };
 
         function showError(msg) {
             errorBox.innerText = msg;
             errorBox.style.display = 'block';
-            // Trigger shake animation ulang jika sudah ada
             errorBox.style.animation = 'none';
-            errorBox.offsetHeight; /* trigger reflow */
+            errorBox.offsetHeight;
             errorBox.style.animation = null;
         }
     </script>
