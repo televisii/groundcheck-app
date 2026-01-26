@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Admin - GC Pro</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
             font-family: 'Segoe UI', sans-serif;
@@ -62,11 +63,31 @@
             margin: 10px 0;
         }
 
+        /* Container Grafik */
+        .chart-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+
+            /* Layout */
+            margin-bottom: 40px;
+            position: relative;
+
+            /* Tinggi Tetap */
+            height: 500px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
         .table-container {
             background: white;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            width: 100%;
+            box-sizing: border-box;
+            overflow-x: hidden;
         }
 
         table {
@@ -87,6 +108,39 @@
             color: #2d3436;
         }
 
+        /* Responsive Mobile */
+        @media (max-width: 768px) {
+            .table-container {
+                overflow-x: auto;
+            }
+
+            table {
+                min-width: 600px;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+
+            .toolbar {
+                flex-direction: column;
+                align-items: flex-start !important;
+                gap: 10px;
+            }
+
+            .search-box {
+                width: 100% !important;
+            }
+
+            .chart-container {
+                height: 400px;
+                padding: 10px;
+                margin-bottom: 50px;
+            }
+        }
+
         .btn-export {
             background: #107c41;
             color: white;
@@ -101,7 +155,6 @@
             font-weight: bold;
         }
 
-        /* Search Bar Baru */
         .toolbar {
             display: flex;
             justify-content: space-between;
@@ -149,6 +202,14 @@
             color: #aaa;
             pointer-events: none;
         }
+
+        .select-filter {
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            background: white;
+            font-family: inherit;
+        }
     </style>
 </head>
 
@@ -167,7 +228,7 @@
         <div class="stats-grid">
             <div class="card">
                 <h3>Total Target Usaha</h3>
-                <div class="number">
+                <div class="number" id="stats-total">
                     <%= stats.total %>
                 </div>
             </div>
@@ -197,9 +258,39 @@
             </a>
         </div>
 
+        <div class="chart-container">
+            <div
+                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
+                <h3 style="margin:0;">📈 Grafik Progress Harian</h3>
+                <div>
+                    <select id="filterMonth" class="select-filter" onchange="debounceSearch()">
+                        <% const monthNames=["Januari", "Februari" , "Maret" , "April" , "Mei" , "Juni" , "Juli"
+                            , "Agustus" , "September" , "Oktober" , "November" , "Desember" ]; %>
+                            <% for(let i=0; i<12; i++) { %>
+                                <option value="<%= i+1 %>" <%=filter.month==(i+1) ? 'selected' : '' %>>
+                                    <%= monthNames[i] %>
+                                </option>
+                                <% } %>
+                    </select>
+                    <select id="filterYear" class="select-filter" onchange="debounceSearch()">
+                        <% const currYear=new Date().getFullYear(); %>
+                            <% for (let i=currYear + 2; i>= currYear - 1; i--) { %>
+                                <option value="<%= i %>" <%=filter.year==i ? 'selected' : '' %>>
+                                    <%= i %>
+                                </option>
+                                <% } %>
+                    </select>
+                </div>
+            </div>
+
+            <div style="position: relative; height: 100%; width: 100%;">
+                <canvas id="verificationChart"></canvas>
+            </div>
+        </div>
+
         <div class="table-container">
             <div class="toolbar">
-                <h3 style="margin:0;">📊 Kinerja Petugas</h3>
+                <h3 style="margin:0;">📋 Kinerja Petugas</h3>
 
                 <input type="text" id="searchInput" class="search-box" placeholder="Ketik nama petugas..."
                     value="<%= pagination.search %>" oninput="debounceSearch()">
@@ -244,51 +335,188 @@
             </table>
 
             <div class="pagination" id="pagination-container">
-                <% if(pagination.totalPages> 1) { %>
-                    <a href="/admin/dashboard?page=<%= pagination.page - 1 %>&search=<%= pagination.search %>"
-                        class="page-link <%= pagination.page === 1 ? 'disabled' : '' %>">Prev</a>
+                <% if (pagination.totalPages> 1) { %>
 
-                    <span class="page-info">Halaman <b>
+                    <a href="javascript:void(0)" class="page-link <%= pagination.page === 1 ? 'disabled' : '' %>"
+                        data-page="<%= pagination.page - 1 %>" onclick="handlePageClick(this)">
+                        Prev
+                    </a>
+
+                    <span class="page-info">
+                        Halaman <b>
                             <%= pagination.page %>
-                        </b> dari <%= pagination.totalPages %></span>
+                        </b> dari <%= pagination.totalPages %>
+                    </span>
 
-                    <a href="/admin/dashboard?page=<%= pagination.page + 1 %>&search=<%= pagination.search %>"
-                        class="page-link <%= pagination.page === pagination.totalPages ? 'disabled' : '' %>">Next</a>
+                    <a href="javascript:void(0)"
+                        class="page-link <%= pagination.page === pagination.totalPages ? 'disabled' : '' %>"
+                        data-page="<%= pagination.page + 1 %>" onclick="handlePageClick(this)">
+                        Next
+                    </a>
+
                     <% } %>
             </div>
+
         </div>
     </div>
 
     <script>
         let searchTimeout = null;
+        let myChart = null;
 
-        // Fungsi ini dipanggil setiap kali user mengetik
+        // --- INIT DATA ---
+        let initialData = [];
+        let initialTotalLampau = 0;
+
+        try {
+            // Ambil data dari server (EJS)
+            initialData = JSON.parse('<%- JSON.stringify(chartData || []) %>');
+            // Ambil saldo awal verifikasi (EJS)
+            initialTotalLampau = parseInt('<%= typeof totalLampau !== "undefined" ? totalLampau : 0 %>');
+        } catch (e) {
+            console.error("Gagal parse data:", e);
+        }
+
+        renderChart(initialData, initialTotalLampau);
+
         function debounceSearch() {
-            // Hapus timer sebelumnya (biar gak request setiap milidetik)
             clearTimeout(searchTimeout);
-
-            // Tunggu 500ms setelah user BERHENTI mengetik, baru request ke server
             searchTimeout = setTimeout(() => {
-                fetchData(1); // Reset ke halaman 1 saat mencari
+                fetchData(1);
             }, 500);
         }
 
         async function fetchData(page) {
             const query = document.getElementById('searchInput').value;
+            const month = document.getElementById('filterMonth').value;
+            const year = document.getElementById('filterYear').value;
 
-            // Ubah URL browser tanpa refresh (biar kalau di-refresh tetap di pencarian tsb)
-            const newUrl = `/admin/dashboard?page=${page}&search=${query}`;
+            const newUrl = `/admin/dashboard?page=${page}&search=${query}&month=${month}&year=${year}`;
+
             window.history.pushState({ path: newUrl }, '', newUrl);
 
-            // Request Data ke Server (AJAX)
             try {
-                const res = await fetch(newUrl + '&ajax=true'); // Tambahkan flag ajax
+                const res = await fetch(newUrl + '&ajax=true');
+                if (!res.ok) throw new Error("Gagal fetch data");
+
                 const data = await res.json();
 
                 renderTable(data);
+
+                // Update Chart
+                renderChart(data.chartData, data.totalLampau);
+
             } catch (err) {
-                console.error("Gagal mengambil data:", err);
+                console.error("Error:", err);
             }
+        }
+
+        function renderChart(data, startTotal) {
+            const ctxCanvas = document.getElementById('verificationChart');
+            if (!ctxCanvas) return;
+            const ctx = ctxCanvas.getContext('2d');
+
+            // Ambil Total Target
+            const totalTargetText = document.getElementById('stats-total').innerText;
+            const totalTarget = parseInt(totalTargetText) || 1;
+
+            // [LOGIKA KUMULATIF BERKELANJUTAN]
+            let cumulativeSum = startTotal || 0;
+
+            let labels = [];
+            let percentages = [];
+
+            if (data && data.length > 0) {
+                data.forEach(d => {
+                    const date = new Date(d.tanggal);
+                    labels.push(date.getDate());
+
+                    cumulativeSum += parseInt(d.jumlah);
+
+                    // Hitung % dari Total Target (Pakai banyak desimal dulu biar presisi)
+                    const percentage = (cumulativeSum / totalTarget) * 100;
+                    percentages.push(percentage); // Masukkan angka asli
+                });
+            } else {
+                labels = ["Tidak ada aktifitas bulan ini"];
+                const lastPercentage = (cumulativeSum / totalTarget) * 100;
+                percentages = [lastPercentage];
+            }
+
+            if (myChart) {
+                myChart.destroy();
+            }
+
+            myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Progress Kumulatif (%)',
+                        data: percentages,
+                        borderColor: '#0984e3',
+                        backgroundColor: 'rgba(9, 132, 227, 0.1)',
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.3,
+                        pointRadius: 4,
+                        pointBackgroundColor: '#fff',
+                        pointBorderColor: '#0984e3'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    layout: {
+                        padding: {
+                            left: 10,
+                            right: 20,
+                            top: 20,
+                            bottom: 50
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function (context) {
+                                    // Tampilkan 4 angka belakang koma di tooltip biar detail
+                                    return `Total Progress: ${context.parsed.y.toFixed(4)}%`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Persentase Kumulatif (%)',
+                                color: '#636e72',
+                                font: { size: 12, weight: 'bold' }
+                            },
+                            ticks: {
+                                callback: function (value) { return value + '%'; },
+                                padding: 10
+                            },
+                            grid: { borderDash: [2, 4] }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Tanggal',
+                                color: '#636e72',
+                                font: { size: 12, weight: 'bold' },
+                                padding: { top: 10 }
+                            },
+                            grid: { display: false },
+                            ticks: {
+                                padding: 10
+                            }
+                        }
+                    }
+                }
+            });
         }
 
         function renderTable(data) {
@@ -297,9 +525,8 @@
             const list = data.leaderboard;
             const pagi = data.pagination;
 
-            // 1. Render Tabel
             let html = '';
-            if (list.length === 0) {
+            if (!list || list.length === 0) {
                 html = '<tr><td colspan="4" style="text-align:center; padding: 20px;">Tidak ada data ditemukan.</td></tr>';
             } else {
                 list.forEach((row, index) => {
@@ -320,22 +547,24 @@
             }
             tbody.innerHTML = html;
 
-            // 2. Render Pagination
             let pagiHtml = '';
             if (pagi.totalPages > 1) {
-                // Tombol Prev
                 const prevDisabled = pagi.page === 1 ? 'disabled' : '';
-                // Kita pakai onclick="fetchData(...)" biar pagination juga gak refresh halaman
-                pagiHtml += `<a href="javascript:void(0)" onclick="fetchData(${pagi.page - 1})" class="page-link ${prevDisabled}">Prev</a>`;
 
-                // Info Halaman
+                pagiHtml += `<a href="javascript:void(0)" onclick='fetchData(${pagi.page - 1})' class="page-link ${prevDisabled}">Prev</a>`;
+
                 pagiHtml += `<span class="page-info" style="margin: 0 10px;">Halaman <b>${pagi.page}</b> dari ${pagi.totalPages}</span>`;
 
-                // Tombol Next
                 const nextDisabled = pagi.page === pagi.totalPages ? 'disabled' : '';
-                pagiHtml += `<a href="javascript:void(0)" onclick="fetchData(${pagi.page + 1})" class="page-link ${nextDisabled}">Next</a>`;
+                pagiHtml += `<a href="javascript:void(0)" onclick='fetchData(${pagi.page + 1})' class="page-link ${nextDisabled}">Next</a>`;
             }
             pagiContainer.innerHTML = pagiHtml;
+        }
+
+        function handlePageClick(el) {
+            if (el.classList.contains('disabled')) return;
+            const page = Number(el.dataset.page);
+            fetchData(page);
         }
     </script>
 </body>

@@ -89,7 +89,7 @@ app.get('/', checkAuth, (req, res) => {
 
 // --- FITUR KHUSUS ADMIN ---
 
-// 1. Dashboard Monitoring (Update: Support AJAX/Real-time)
+// 1. Dashboard Monitoring (Logika Chart & Stats Update)
 app.get('/admin/dashboard', checkAuth, checkAdmin, async (req, res) => {
     try {
         const search = req.query.search || '';
@@ -97,12 +97,42 @@ app.get('/admin/dashboard', checkAuth, checkAdmin, async (req, res) => {
         const limit = 10;
         const offset = (page - 1) * limit;
 
-        // A. Statistik Global (Tetap)
+        const currentYear = new Date().getFullYear();
+        const currentMonth = new Date().getMonth() + 1;
+
+        const filterMonth = parseInt(req.query.month) || currentMonth;
+        const filterYear = parseInt(req.query.year) || currentYear;
+
+        // A. Statistik Global
         const totalUsaha = await pool.query('SELECT COUNT(*) FROM lokasi_usaha');
         const sudahVerif = await pool.query('SELECT COUNT(*) FROM lokasi_usaha WHERE is_verified = TRUE');
         const belumVerif = await pool.query('SELECT COUNT(*) FROM lokasi_usaha WHERE is_verified = FALSE');
 
-        // B. Leaderboard Data
+        // B. Hitung Total Verifikasi Masa Lampau (Sebelum Bulan yg Dipilih)
+        const queryBefore = `
+            SELECT COUNT(*) as total_lampau 
+            FROM lokasi_usaha 
+            WHERE is_verified = TRUE 
+            AND (EXTRACT(YEAR FROM waktu_verifikasi) < $1 
+                 OR (EXTRACT(YEAR FROM waktu_verifikasi) = $1 AND EXTRACT(MONTH FROM waktu_verifikasi) < $2))
+        `;
+        // Parameter $1 = Tahun, $2 = Bulan
+        const beforeResult = await pool.query(queryBefore, [filterYear, filterMonth]);
+        const totalLampau = parseInt(beforeResult.rows[0].total_lampau) || 0;
+
+        // C. Data Grafik Harian (Hanya di Bulan Terpilih)
+        const queryGrafik = `
+            SELECT TO_CHAR(waktu_verifikasi, 'YYYY-MM-DD') as tanggal, COUNT(*) as jumlah
+            FROM lokasi_usaha
+            WHERE is_verified = TRUE 
+            AND EXTRACT(MONTH FROM waktu_verifikasi) = $1
+            AND EXTRACT(YEAR FROM waktu_verifikasi) = $2
+            GROUP BY tanggal
+            ORDER BY tanggal ASC
+        `;
+        const grafikResult = await pool.query(queryGrafik, [filterMonth, filterYear]);
+
+        // D. Leaderboard Data
         const queryLeaderboard = `
             SELECT petugas_nama, petugas_email, COUNT(*) as total_kerja 
             FROM lokasi_usaha 
@@ -116,16 +146,20 @@ app.get('/admin/dashboard', checkAuth, checkAdmin, async (req, res) => {
         const totalPages = Math.ceil(totalData / limit);
         const paginatedData = allResult.rows.slice(offset, offset + limit);
 
-        // --- [BAGIAN BARU] CEK REQUEST AJAX ---
-        // Jika request datang dari ketikan pencarian (background), kirim JSON saja
+        // --- AJAX RESPONSE ---
+        // Jika request via AJAX (saat filter diganti), kirim data JSON lengkap
         if (req.query.ajax) {
             return res.json({
                 leaderboard: paginatedData,
-                pagination: { page, totalPages, search }
+                pagination: { page, totalPages, search },
+                chartData: grafikResult.rows,
+                totalLampau: totalLampau, // [PENTING] Kirim saldo awal ke frontend
+                stats: { total: parseInt(totalUsaha.rows[0].count) }, // Kirim total target buat pembagi
+                filter: { month: filterMonth, year: filterYear }
             });
         }
-        // --------------------------------------
 
+        // --- RENDER HTML ---
         res.render('admin-dashboard', {
             user: req.session.user,
             stats: {
@@ -134,7 +168,10 @@ app.get('/admin/dashboard', checkAuth, checkAdmin, async (req, res) => {
                 pending: parseInt(belumVerif.rows[0].count)
             },
             leaderboard: paginatedData,
-            pagination: { page, totalPages, search }
+            pagination: { page, totalPages, search },
+            chartData: grafikResult.rows,
+            totalLampau: totalLampau, // [PENTING] Kirim saldo awal ke frontend
+            filter: { month: filterMonth, year: filterYear }
         });
 
     } catch (err) {
@@ -164,7 +201,7 @@ app.get('/api/riwayat-saya', checkAuth, async (req, res) => {
 // 2. Export Data ke Excel (.xlsx)
 app.get('/admin/export', checkAuth, checkAdmin, async (req, res) => {
     try {
-        // PERBAIKAN: Gunakan TO_CHAR agar waktu terkunci sebagai Teks (tidak diubah ExcelJS)
+        // Gunakan TO_CHAR agar waktu terkunci sebagai Teks
         const result = await pool.query(`
             SELECT idsbr, nama_usaha, alamat_usaha, status_usaha, 
                    latitude, longitude, petugas_nama, kode_desa, petugas_email, 
@@ -200,9 +237,15 @@ app.get('/admin/export', checkAuth, checkAdmin, async (req, res) => {
             worksheet.addRow(row);
         });
 
-        // Set Header HTTP agar browser mendownload file
+        const now = new Date();
+        const day = String(now.getDate()).padStart(2, '0');
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const year = now.getFullYear();
+
+        const dateString = `${day}-${month}-${year}`;
+
         res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        res.setHeader('Content-Disposition', `attachment; filename=Export_GC_Pro_${Date.now()}.xlsx`);
+        res.setHeader('Content-Disposition', `attachment; filename=Export_GC_Pro_${dateString}.xlsx`);
 
         // Tulis file ke response
         await workbook.xlsx.write(res);
