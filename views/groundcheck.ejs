@@ -418,6 +418,34 @@
             border: 1px solid #ddd !important;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1) !important;
         }
+
+        /* Perkecil tombol layer */
+        .leaflet-control-layers-toggle {
+            width: 32px !important;
+            height: 32px !important;
+            background-size: 18px !important;
+        }
+
+        /* Tombol Lokasi Custom di Peta */
+        .btn-map-custom {
+            background: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 22px;
+            margin-top: 5px !important;
+            /* Jarak dari tombol layer */
+        }
+
+        .btn-map-custom:hover {
+            background: #f1f2f6;
+        }
     </style>
 </head>
 
@@ -482,7 +510,8 @@
             <div id="map" style="height:225px;;
  margin: 10px 0 5px 0; border-radius:12px; border:1px solid #ddd;"></div>
 
-            <button onclick="getCurrentLocation()" class="btn-location" type="button">📍 AMBIL LOKASI SAYA</button>
+            <h6 style="margin-top: 0; margin-bottom: 3px; text-align: center; font-style: italic; font-weight: normal;">
+                Silahkan tekan & geser lokasi usaha, bila belum sesuai, atau input manual koordinat di bawah ini</h6>
 
             <div style="display:flex;
  gap:10px;">
@@ -501,7 +530,8 @@
 
             </select>
             <button onclick="saveData()" style="background:var(--accent);
- color:white; border:none; padding:14px; border-radius:10px; font-weight:bold; width:100%; cursor:pointer;">SIMPAN DATA</button>
+ color:white; border:none; padding:14px; border-radius:10px; font-weight:bold; width:100%; cursor:pointer;">SIMPAN
+                DATA</button>
             <button onclick="closeModal()" class="btn-pagi" style="width:100%;
  margin-top:8px;">BATAL</button>
         </div>
@@ -671,19 +701,25 @@
 
         function getCurrentLocation() {
             if (navigator.geolocation) {
-                const btn = document.querySelector('.btn-location');
-                const oldText = btn.innerHTML;
-                btn.innerHTML = '⏳ Sedang mencari...';
-                btn.disabled = true;
+                const btn = document.getElementById('btn-locate');
+
+                if (btn) {
+                    btn.innerHTML = '<div class="spinner" style="width:12px;height:12px;border-width:2px;margin:0"></div>';
+                    btn.disabled = true;
+                }
+
                 navigator.geolocation.getCurrentPosition(
                     (position) => {
                         const lat = position.coords.latitude;
                         const lng = position.coords.longitude;
 
                         setMarker(lat, lng);
-                        btn.innerHTML = oldText;
-                        btn.disabled = false;
-                        Swal.fire({ icon: 'success', title: 'Lokasi ditemukan!', toast: true, position: 'top-end', showConfirmButton: false, timer: 1500 });
+
+                        if (btn) {
+                            btn.innerHTML = '⌖';
+                            btn.disabled = false;
+                        }
+                        Swal.fire({ icon: 'success', title: 'Lokasi GPS diambil', toast: true, position: 'top-end', showConfirmButton: false, timer: 1500 });
 
                     },
                     (error) => {
@@ -754,6 +790,22 @@
 
                 const baseMaps = { "Satelit": googleHybrid, "Peta": osmLayer };
                 L.control.layers(baseMaps).addTo(map);
+
+                // Tambah Tombol Lokasi Custom di Bawah Layer
+                const LocControl = L.Control.extend({
+                    options: { position: 'topright' },
+                    onAdd: function () {
+                        const btn
+                            = L.DomUtil.create('button', 'btn-map-custom');
+                        btn.id = 'btn-locate';
+                        btn.type = 'button';
+                        btn.innerHTML = '⌖';
+
+                        btn.onclick = (e) => { L.DomEvent.stopPropagation(e); getCurrentLocation(); };
+                        return btn;
+                    }
+                });
+                map.addControl(new LocControl());
             }
 
             setTimeout(() => { map.invalidateSize(); }, 100);
@@ -785,7 +837,10 @@
             document.getElementById('lat').value = lat.toFixed(7);
             document.getElementById('lng').value = lng.toFixed(7);
             if (!marker) {
-                marker = L.marker([lat, lng], { draggable: true }).addTo(map);
+                marker = L.marker([lat, lng], {
+                    draggable: true,
+                    title: "Silahkan tekan & geser lokasi usaha, bila belum sesuai"
+                }).addTo(map).bindTooltip("Lokasi Usaha", { permanent: true, direction: 'top', offset: [-13, -5] });
                 marker.on('dragend', () => { const p = marker.getLatLng(); document.getElementById('lat').value = p.lat.toFixed(7); document.getElementById('lng').value = p.lng.toFixed(7); });
             } else marker.setLatLng([lat, lng]);
             map.setView([lat, lng], 17);

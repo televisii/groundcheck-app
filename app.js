@@ -17,7 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 // --- SESSION CONFIGURATION ---
 app.use(session({
     store: new pgSession({ pool: pool, tableName: 'session' }),
-    secret: process.env.SESSION_SECRET || 'gc-pro-2026-secure-key',
+    secret: process.env.SESSION_SECRET || 'gc-pro-secret-2026',
     resave: false,
     saveUninitialized: false,
     cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 } // 30 Hari
@@ -28,9 +28,6 @@ app.use(session({
 // 1. Cek Login
 const checkAuth = (req, res, next) => {
     if (req.session.user) return next();
-    if (req.path.startsWith('/api/')) {
-        return res.status(401).json({ message: 'Sesi berakhir, silakan login kembali.' });
-    }
     res.redirect('/login');
 };
 
@@ -285,6 +282,7 @@ app.get('/api/usaha-pending/:kodeDesa', async (req, res) => {
     const page = parseInt(req.query.page) || 1;
     const limit = 10;
     const offset = (page - 1) * limit;
+
     try {
         const data = await pool.query(
             `SELECT idsbr, nama_usaha, alamat_usaha, is_verified, status_usaha, petugas_email, latitude, longitude 
@@ -302,23 +300,16 @@ app.get('/api/usaha-pending/:kodeDesa', async (req, res) => {
     } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-app.post('/api/verifikasi', async (req, res) => {
-    let { idsbr, lat, lng, status_usaha, is_new, nama_usaha, alamat_usaha, kode_desa } = req.body;
-    const petugas_email = req.session.user.email;
-    const petugas = req.session.user.nama;
-    const allowedStatus = ['BARU', 'Aktif', 'Tidak Ditemukan', 'Tutup', 'Ganda'];
-
+app.post('/api/verifikasi', checkAuth, async (req, res) => {
+    const { idsbr, lat, lng, petugas, petugas_email, status_usaha, is_new, nama_usaha, alamat_usaha, kode_desa } = req.body;
     try {
         if (is_new) {
-            // Paksa status BARU di backend
             await pool.query(
                 `INSERT INTO lokasi_usaha (idsbr, nama_usaha, alamat_usaha, kode_desa, latitude, longitude, is_verified, petugas_nama, petugas_email, status_usaha, waktu_verifikasi) 
                  VALUES ($1, $2, $3, $4, $5, $6, TRUE, $7, $8, $9, (NOW() AT TIME ZONE 'Asia/Jakarta'))`,
                 ['NEW-' + Date.now(), nama_usaha, alamat_usaha, kode_desa, lat, lng, petugas, petugas_email, status_usaha]
             );
         } else {
-            if (!allowedStatus.includes(status_usaha)) return res.status(400).json({ message: 'Status tidak valid' });
-
             const check = await pool.query('SELECT is_verified, petugas_email FROM lokasi_usaha WHERE idsbr = $1', [idsbr]);
 
             // Cek apakah data dikunci (kecuali admin)
@@ -334,10 +325,7 @@ app.post('/api/verifikasi', async (req, res) => {
             );
         }
         res.json({ success: true });
-    } catch (err) {
-        console.error(err); 
-        res.status(500).json({ message: 'Kesalahan sistem saat menyimpan.' });
-    }
+    } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
 // --- JALANKAN SERVER ---
