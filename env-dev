@@ -1,0 +1,6 @@
+DB_USER=postgres
+DB_HOST=localhost
+DB_NAME=groundcheck_db
+DB_PASSWORD=yolooo
+DB_PORT=5433
+SESSION_SECRET=yoloo1406
