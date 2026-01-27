@@ -5,6 +5,8 @@ const session = require('express-session');
 const pgSession = require('connect-pg-simple')(session);
 const bcrypt = require('bcrypt');
 const ExcelJS = require('exceljs');
+const fs = require('fs');
+
 require('dotenv').config();
 
 const app = express();
@@ -22,6 +24,29 @@ app.use(session({
     saveUninitialized: false,
     cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 } // 30 Hari
 }));
+
+// -- UPDATE VALIDASI LOKASI KAMPAR--
+let kamparGeometry = null;
+try {
+    const rawData = fs.readFileSync('./peta_kab_202511406.geojson');
+    const geoJson = JSON.parse(rawData);
+
+    if (geoJson.features && geoJson.features.length > 0) {
+        kamparGeometry = geoJson.features[0].geometry;
+    }
+} catch (error) {
+    console.error("Gagal memuat file peta:", error.message);
+}
+
+
+app.get('/api/peta-kampar', (req, res) => {
+    if (kamparGeometry) {
+        res.json(kamparGeometry);
+    } else {
+        res.status(404).json({ error: 'Data peta tidak ditemukan' });
+    }
+});
+
 
 // --- CUSTOM MIDDLEWARE ---
 
