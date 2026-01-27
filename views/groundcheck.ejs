@@ -690,7 +690,7 @@
                             btn.innerHTML = '⌖';
                             btn.disabled = false;
                         }
-                        setMarker(-0.34, 101.03); // Default Kampar
+                        setMarker(-6.17, 106.82); // Default Kampar
                         let msg = 'Gagal mengambil lokasi.';
                         if (error.code == 1) msg = 'GPS Ditolak. Izinkan akses lokasi di browser.';
                         else if (error.code == 2) msg = 'Sinyal GPS lemah.';
@@ -699,7 +699,7 @@
                     { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
                 );
             } else {
-                setMarker(-0.34, 101.03);
+                setMarker(-6.17, 106.82);
                 Swal.fire('Error', 'Browser tidak mendukung Geolocation.', 'error');
             }
         }
