@@ -25,6 +25,27 @@ app.use(session({
     cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 } // 30 Hari
 }));
 
+// [UPDATE] Middleware Maintenance Mode (Cek File Lock)
+app.use((req, res, next) => {
+    let isMaintenance = false;
+    try {
+        if (fs.existsSync('./maintenance.lock')) {
+            isMaintenance = true;
+        }
+    } catch (err) {
+        console.error(err);
+    }
+
+    const isBypass = req.query.bypass === 'rahasia';
+
+    if (isMaintenance && !isBypass) {
+        res.set('Cache-Control', 'no-store');
+        return res.status(503).render('maintenance');
+    }
+
+    next();
+});
+
 // -- UPDATE VALIDASI LOKASI KAMPAR--
 let kamparGeometry = null;
 try {
