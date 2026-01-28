@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Admin - GC Pro</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         body {
             font-family: 'Segoe UI', sans-serif;
@@ -63,18 +64,13 @@
             margin: 10px 0;
         }
 
-        /* Container Grafik */
         .chart-container {
             background: white;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-
-            /* Layout */
             margin-bottom: 40px;
             position: relative;
-
-            /* Tinggi Tetap */
             height: 500px;
             width: 100%;
             box-sizing: border-box;
@@ -101,6 +97,7 @@
             padding: 12px;
             text-align: left;
             border-bottom: 1px solid #eee;
+            vertical-align: middle;
         }
 
         th {
@@ -108,14 +105,49 @@
             color: #2d3436;
         }
 
-        /* Responsive Mobile */
+        /* CSS Mobile Table */
+        .desktop-only {
+            display: table-cell;
+        }
+
+        .mobile-email {
+            display: none;
+            font-size: 11px;
+            color: #636e72;
+            margin-top: 2px;
+            font-style: italic;
+        }
+
+        .badge-total {
+            background: #e6fffb;
+            color: #00b894;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-block;
+            border: 1px solid transparent;
+        }
+
+        .badge-total:hover {
+            background: #00b894;
+            color: white;
+            transform: scale(1.05);
+            border-color: #00b894;
+        }
+
         @media (max-width: 768px) {
             .table-container {
                 overflow-x: auto;
             }
 
-            table {
-                min-width: 600px;
+            .desktop-only {
+                display: none;
+            }
+
+            .mobile-email {
+                display: block;
             }
 
             .header {
@@ -210,6 +242,86 @@
             background: white;
             font-family: inherit;
         }
+
+        /* --CSS MODAL POPUP TOTAL VERIF PAGE ADMIN--  */
+
+        .swal2-popup.custom-modal-radius {
+            border-radius: 20px !important;
+            padding-bottom: 25px !important;
+        }
+
+        /* Header Profil */
+        .modal-profile-header {
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .modal-profile-name {
+            font-size: 22px;
+            font-weight: 700;
+            color: #2d3436;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .modal-profile-email {
+            font-size: 13px;
+            color: #636e72;
+            font-weight: 500;
+            background: #f1f2f6;
+            padding: 4px 12px;
+            border-radius: 15px;
+            display: inline-block;
+        }
+
+        /* List Container */
+        .modal-stat-list-container {
+            background: #f8f9fa;
+            border-radius: 16px;
+            padding: 5px 20px;
+            text-align: left;
+            border: 1px solid #eee;
+        }
+
+        /* Item Baris */
+        .modal-stat-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .modal-stat-item:last-child {
+            border-bottom: none;
+        }
+
+        /* Label & Dot */
+        .stat-label-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .stat-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: #2d3436;
+        }
+
+        .stat-value {
+            font-size: 18px;
+            font-weight: 800;
+            color: #2d3436;
+        }
     </style>
 </head>
 
@@ -261,7 +373,7 @@
         <div class="chart-container">
             <div
                 style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
-                <h3 style="margin:0;">📈 Grafik Progress Harian</h3>
+                <h3 style="margin:0;">📈 Grafik Progress Kumulatif</h3>
                 <div>
                     <select id="filterMonth" class="select-filter" onchange="debounceSearch()">
                         <% const monthNames=["Januari", "Februari" , "Maret" , "April" , "Mei" , "Juni" , "Juli"
@@ -274,7 +386,7 @@
                     </select>
                     <select id="filterYear" class="select-filter" onchange="debounceSearch()">
                         <% const currYear=new Date().getFullYear(); %>
-                            <% for (let i=currYear + 2; i>= currYear - 1; i--) { %>
+                            <% for (let i=currYear + 3; i>= currYear - 2; i--) { %>
                                 <option value="<%= i %>" <%=filter.year==i ? 'selected' : '' %>>
                                     <%= i %>
                                 </option>
@@ -282,7 +394,6 @@
                     </select>
                 </div>
             </div>
-
             <div style="position: relative; height: 100%; width: 100%;">
                 <canvas id="verificationChart"></canvas>
             </div>
@@ -291,7 +402,6 @@
         <div class="table-container">
             <div class="toolbar">
                 <h3 style="margin:0;">📋 Kinerja Petugas</h3>
-
                 <input type="text" id="searchInput" class="search-box" placeholder="Ketik nama petugas..."
                     value="<%= pagination.search %>" oninput="debounceSearch()">
             </div>
@@ -299,10 +409,10 @@
             <table>
                 <thead>
                     <tr>
-                        <th width="50">No</th>
+                        <th width="40">No</th>
                         <th>Nama Petugas</th>
-                        <th>Email</th>
-                        <th>Total Verifikasi</th>
+                        <th class="desktop-only">Email</th>
+                        <th style="text-align: center;">Total Verifikasi</th>
                     </tr>
                 </thead>
                 <tbody id="tbody-petugas">
@@ -317,16 +427,21 @@
                                     <td>
                                         <%= ((pagination.page - 1) * 10) + (index + 1) %>
                                     </td>
-                                    <td><b>
-                                            <%= row.petugas_nama %>
-                                        </b></td>
                                     <td>
+                                        <b>
+                                            <%= row.petugas_nama %>
+                                        </b>
+                                        <div class="mobile-email">
+                                            <%= row.petugas_email %>
+                                        </div>
+                                    </td>
+                                    <td class="desktop-only">
                                         <%= row.petugas_email %>
                                     </td>
-                                    <td>
-                                        <span
-                                            style="background:#e6fffb; color:#00b894; padding:5px 10px; border-radius:15px; font-weight:bold;">
-                                            <%= row.total_kerja %> Usaha
+                                    <td style="text-align: center;">
+                                        <span class="badge-total"
+                                            onclick="showStatDetail('<%= row.petugas_email %>', '<%= row.petugas_nama %>')">
+                                            <%= row.total_kerja %>
                                         </span>
                                     </td>
                                 </tr>
@@ -335,28 +450,18 @@
             </table>
 
             <div class="pagination" id="pagination-container">
-                <% if (pagination.totalPages> 1) { %>
+                <% if(pagination.totalPages> 1) { %>
+                    <a href="javascript:void(0)" onclick="fetchData('<%= pagination.page - 1 %>')"
+                        class="page-link <%= pagination.page === 1 ? 'disabled' : '' %>">Prev</a>
 
-                    <a href="javascript:void(0)" class="page-link <%= pagination.page === 1 ? 'disabled' : '' %>"
-                        data-page="<%= pagination.page - 1 %>" onclick="handlePageClick(this)">
-                        Prev
-                    </a>
-
-                    <span class="page-info">
-                        Halaman <b>
+                    <span class="page-info" style="margin: 0 15px; font-weight: 600; color: #636e72;">Halaman <b>
                             <%= pagination.page %>
-                        </b> dari <%= pagination.totalPages %>
-                    </span>
+                        </b> dari <%= pagination.totalPages %></span>
 
-                    <a href="javascript:void(0)"
-                        class="page-link <%= pagination.page === pagination.totalPages ? 'disabled' : '' %>"
-                        data-page="<%= pagination.page + 1 %>" onclick="handlePageClick(this)">
-                        Next
-                    </a>
-
+                    <a href="javascript:void(0)" onclick="fetchData('<%= pagination.page + 1 %>')"
+                        class="page-link <%= pagination.page === pagination.totalPages ? 'disabled' : '' %>">Next</a>
                     <% } %>
             </div>
-
         </div>
     </div>
 
@@ -369,12 +474,10 @@
         let initialTotalLampau = 0;
 
         try {
-            // Ambil data dari server (EJS)
             initialData = JSON.parse('<%- JSON.stringify(chartData || []) %>');
-            // Ambil saldo awal verifikasi (EJS)
             initialTotalLampau = parseInt('<%= typeof totalLampau !== "undefined" ? totalLampau : 0 %>');
         } catch (e) {
-            console.error("Gagal parse data:", e);
+            console.error("Gagal parsing data awal:", e);
         }
 
         renderChart(initialData, initialTotalLampau);
@@ -392,22 +495,139 @@
             const year = document.getElementById('filterYear').value;
 
             const newUrl = `/admin/dashboard?page=${page}&search=${query}&month=${month}&year=${year}`;
-
             window.history.pushState({ path: newUrl }, '', newUrl);
 
             try {
                 const res = await fetch(newUrl + '&ajax=true');
                 if (!res.ok) throw new Error("Gagal fetch data");
+                const data = await res.json();
+                renderTable(data);
+                renderChart(data.chartData, data.totalLampau);
+            } catch (err) {
+                console.error("Error mengambil data:", err);
+            }
+        }
+
+        function renderTable(data) {
+            const tbody = document.getElementById('tbody-petugas');
+            const pagiContainer = document.getElementById('pagination-container');
+            const list = data.leaderboard;
+            const pagi = data.pagination;
+
+            let html = '';
+            if (!list || list.length === 0) {
+                html = '<tr><td colspan="4" style="text-align:center; padding: 20px;">Tidak ada data ditemukan.</td></tr>';
+            } else {
+                list.forEach((row, index) => {
+                    const no = ((pagi.page - 1) * 10) + (index + 1);
+                    html += `
+                        <tr>
+                            <td>${no}</td>
+                            <td>
+                                <b>${row.petugas_nama}</b>
+                                <div class="mobile-email">${row.petugas_email}</div>
+                            </td>
+                            <td class="desktop-only">${row.petugas_email}</td>
+                            <td style="text-align: center;">
+                                <span class="badge-total" onclick="showStatDetail('${row.petugas_email}', '${row.petugas_nama}')">
+                                    ${row.total_kerja}
+                                </span>
+                            </td>
+                        </tr>
+                    `;
+                });
+            }
+            tbody.innerHTML = html;
+
+            let pagiHtml = '';
+            if (pagi.totalPages > 1) {
+                const prevDisabled = pagi.page === 1 ? 'disabled' : '';
+                pagiHtml += `<a href="javascript:void(0)" onclick='fetchData(${pagi.page - 1})' class="page-link ${prevDisabled}">Prev</a>`;
+                pagiHtml += `<span class="page-info" style="margin: 0 10px;">Halaman <b>${pagi.page}</b> dari ${pagi.totalPages}</span>`;
+                const nextDisabled = pagi.page === pagi.totalPages ? 'disabled' : '';
+                pagiHtml += `<a href="javascript:void(0)" onclick='fetchData(${pagi.page + 1})' class="page-link ${nextDisabled}">Next</a>`;
+            }
+            pagiContainer.innerHTML = pagiHtml;
+        }
+
+        // --- [UPDATE: TAMPILAN POPUP DETAIL VERIF] ---
+        async function showStatDetail(email, nama) {
+            Swal.fire({
+                title: '',
+                html: '<div style="padding:20px;">Memuat data...</div>',
+                allowOutsideClick: false,
+                showConfirmButton: false,
+                customClass: { popup: 'custom-modal-radius' },
+                didOpen: () => { Swal.showLoading(); }
+            });
+
+            try {
+                const res = await fetch(`/api/stats-detail?email=${encodeURIComponent(email)}`);
+                if (!res.ok) throw new Error("Gagal mengambil data");
 
                 const data = await res.json();
 
-                renderTable(data);
+                // 1. Header Profil
+                let headerHtml = `
+                    <div class="modal-profile-header">
+                        <span class="modal-profile-name">${nama}</span>
+                        <span class="modal-profile-email">${email}</span>
+                    </div>
+                `;
 
-                // Update Chart
-                renderChart(data.chartData, data.totalLampau);
+                // 2. List Statistik
+                let contentHtml = `<div class="modal-stat-list-container">`;
+
+                if (data.length === 0) {
+                    contentHtml += `<div style="text-align:center; color:#a4b0be; padding:20px; font-style:italic;">Belum ada data detail.</div>`;
+                } else {
+                    const colors = {
+                        'Aktif': '#00b894',
+                        'Tidak Ditemukan': '#636e72',
+                        'Tutup': '#d63031',
+                        'Ganda': '#e17055',
+                        'Baru': '#0984e3'
+                    };
+
+                    data.forEach(item => {
+                        const color = colors[item.status_usaha] || '#2d3436';
+                        contentHtml += `
+                            <div class="modal-stat-item">
+                                <div class="stat-label-container">
+                                    <span class="stat-dot" style="background-color: ${color};"></span>
+                                    <span class="stat-name">${item.status_usaha}</span>
+                                </div>
+                                <span class="stat-value">${item.jumlah}</span>
+                            </div>
+                        `;
+                    });
+                }
+                contentHtml += `</div>`;
+
+                // 3. Tampilkan Popup 
+                Swal.fire({
+                    title: '',
+                    html: headerHtml + contentHtml,
+                    confirmButtonText: 'Tutup',
+                    confirmButtonColor: '#2d3436',
+                    customClass: { popup: 'custom-modal-radius' },
+                    buttonsStyling: false,
+                    didOpen: () => {
+
+                        const btn = Swal.getConfirmButton();
+                        btn.style.backgroundColor = '#2d3436';
+                        btn.style.color = '#fff';
+                        btn.style.borderRadius = '12px';
+                        btn.style.padding = '10px 30px';
+                        btn.style.marginTop = '20px';
+                        btn.style.fontWeight = 'bold';
+                        btn.style.boxShadow = '0 4px 6px rgba(0,0,0,0.1)';
+                    }
+                });
 
             } catch (err) {
-                console.error("Error:", err);
+                console.error(err);
+                Swal.fire({ icon: 'error', title: 'Error', text: 'Gagal memuat data.' });
             }
         }
 
@@ -416,13 +636,10 @@
             if (!ctxCanvas) return;
             const ctx = ctxCanvas.getContext('2d');
 
-            // Ambil Total Target
             const totalTargetText = document.getElementById('stats-total').innerText;
             const totalTarget = parseInt(totalTargetText) || 1;
 
-            // [LOGIKA KUMULATIF BERKELANJUTAN]
             let cumulativeSum = startTotal || 0;
-
             let labels = [];
             let percentages = [];
 
@@ -430,12 +647,9 @@
                 data.forEach(d => {
                     const date = new Date(d.tanggal);
                     labels.push(date.getDate());
-
                     cumulativeSum += parseInt(d.jumlah);
-
-                    // Hitung % dari Total Target (Pakai banyak desimal dulu biar presisi)
                     const percentage = (cumulativeSum / totalTarget) * 100;
-                    percentages.push(percentage); // Masukkan angka asli
+                    percentages.push(percentage);
                 });
             } else {
                 labels = ["Tidak ada aktifitas bulan ini"];
@@ -443,9 +657,7 @@
                 percentages = [lastPercentage];
             }
 
-            if (myChart) {
-                myChart.destroy();
-            }
+            if (myChart) myChart.destroy();
 
             myChart = new Chart(ctx, {
                 type: 'line',
@@ -467,104 +679,26 @@
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    layout: {
-                        padding: {
-                            left: 10,
-                            right: 20,
-                            top: 20,
-                            bottom: 50
-                        }
-                    },
+                    layout: { padding: { left: 10, right: 20, top: 20, bottom: 50 } },
                     plugins: {
                         legend: { display: false },
-                        tooltip: {
-                            callbacks: {
-                                label: function (context) {
-                                    // Tampilkan 4 angka belakang koma di tooltip biar detail
-                                    return `Total Progress: ${context.parsed.y.toFixed(4)}%`;
-                                }
-                            }
-                        }
+                        tooltip: { callbacks: { label: function (context) { return `Total Progress: ${context.parsed.y.toFixed(4)}%`; } } }
                     },
                     scales: {
                         y: {
                             beginAtZero: true,
-                            title: {
-                                display: true,
-                                text: 'Persentase Kumulatif (%)',
-                                color: '#636e72',
-                                font: { size: 12, weight: 'bold' }
-                            },
-                            ticks: {
-                                callback: function (value) { return value + '%'; },
-                                padding: 10
-                            },
+                            title: { display: true, text: 'Persentase Kumulatif (%)', color: '#636e72', font: { size: 12, weight: 'bold' } },
+                            ticks: { callback: function (value) { return value + '%'; }, padding: 10 },
                             grid: { borderDash: [2, 4] }
                         },
                         x: {
-                            title: {
-                                display: true,
-                                text: 'Tanggal',
-                                color: '#636e72',
-                                font: { size: 12, weight: 'bold' },
-                                padding: { top: 10 }
-                            },
+                            title: { display: true, text: 'Tanggal', color: '#636e72', font: { size: 12, weight: 'bold' }, padding: { top: 10 } },
                             grid: { display: false },
-                            ticks: {
-                                padding: 10
-                            }
+                            ticks: { padding: 10 }
                         }
                     }
                 }
             });
-        }
-
-        function renderTable(data) {
-            const tbody = document.getElementById('tbody-petugas');
-            const pagiContainer = document.getElementById('pagination-container');
-            const list = data.leaderboard;
-            const pagi = data.pagination;
-
-            let html = '';
-            if (!list || list.length === 0) {
-                html = '<tr><td colspan="4" style="text-align:center; padding: 20px;">Tidak ada data ditemukan.</td></tr>';
-            } else {
-                list.forEach((row, index) => {
-                    const no = ((pagi.page - 1) * 10) + (index + 1);
-                    html += `
-                        <tr>
-                            <td>${no}</td>
-                            <td><b>${row.petugas_nama}</b></td>
-                            <td>${row.petugas_email}</td>
-                            <td>
-                                <span style="background:#e6fffb; color:#00b894; padding:5px 10px; border-radius:15px; font-weight:bold;">
-                                    ${row.total_kerja} Usaha
-                                </span>
-                            </td>
-                        </tr>
-                    `;
-                });
-            }
-            tbody.innerHTML = html;
-
-            let pagiHtml = '';
-            if (pagi.totalPages > 1) {
-                const prevDisabled = pagi.page === 1 ? 'disabled' : '';
-
-                pagiHtml += `<a href="javascript:void(0)" onclick='fetchData(${pagi.page - 1})' class="page-link ${prevDisabled}">Prev</a>`;
-
-                pagiHtml += `<span class="page-info" style="margin: 0 10px;">Halaman <b>${pagi.page}</b> dari ${pagi.totalPages}</span>`;
-
-                const nextDisabled = pagi.page === pagi.totalPages ? 'disabled' : '';
-                pagiHtml += `<a href="javascript:void(0)" onclick='fetchData(${pagi.page + 1})' class="page-link ${nextDisabled}">Next</a>`;
-            }
-            pagiContainer.innerHTML = pagiHtml;
-        }
-
-        function handlePageClick(el) {
-            if (el.classList.contains('disabled')) return;
-            const page = Number(el.dataset.page);
-            fetchData(page);
         }
     </script>
 </body>

@@ -353,6 +353,25 @@ app.post('/api/verifikasi', checkAuth, async (req, res) => {
     } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
+
+//  API Detail Statistik Status Usaha per Petugas
+app.get('/api/stats-detail', checkAuth, checkAdmin, async (req, res) => {
+    try {
+        const { email } = req.query;
+
+        const query = `
+            SELECT status_usaha, COUNT(*) as jumlah 
+            FROM lokasi_usaha 
+            WHERE petugas_email = $1 AND is_verified = TRUE 
+            GROUP BY status_usaha
+        `;
+        const result = await pool.query(query, [email]);
+        res.json(result.rows);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
 // --- JALANKAN SERVER ---
 const PORT = 3000;
 app.listen(PORT, () => console.log(`🚀 Server berjalan di http://localhost:${PORT}`));
