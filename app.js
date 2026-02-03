@@ -314,12 +314,20 @@ app.get('/api/stats-petugas', checkAuth, async (req, res) => {
 
 app.get(['/api/wilayah', '/api/wilayah/:parent'], async (req, res) => {
     const parent = req.params.parent || '';
+
+    // [UPDATE] 'allow_new' di SELECT
     const query = parent === '' ?
-        `SELECT kode, nama FROM wilayah WHERE LENGTH(kode) <= 7 ORDER BY nama ASC` :
-        `SELECT kode, nama FROM wilayah WHERE kode LIKE $1 AND kode != $2 ORDER BY nama ASC`;
+        `SELECT kode, nama, allow_new FROM wilayah WHERE LENGTH(kode) <= 7 ORDER BY nama ASC` :
+        `SELECT kode, nama, allow_new FROM wilayah WHERE kode LIKE $1 AND kode != $2 ORDER BY nama ASC`;
+
     const params = parent === '' ? [] : [parent + '%', parent];
-    const { rows } = await pool.query(query, params);
-    res.json(rows);
+
+    try {
+        const { rows } = await pool.query(query, params);
+        res.json(rows);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
 });
 
 app.get('/api/usaha-pending/:kodeDesa', async (req, res) => {

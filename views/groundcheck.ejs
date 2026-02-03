@@ -502,6 +502,7 @@
 
             <select id="status" class="input-minimal">
                 <option value="" disabled selected>Pilih Status</option>
+                <option value="BARU" hidden disabled>BARU</option>
                 <option value="Aktif">Aktif</option>
                 <option value="Tidak Ditemukan">Tidak Ditemukan</option>
                 <option value="Tutup">Tutup</option>
@@ -513,6 +514,10 @@
             <button onclick="closeModal()" class="btn-pagi" style="width:100%; margin-top:8px;">BATAL</button>
         </div>
     </div>
+
+    <button class="fab-add" onclick="openModal(null, true)">
+        +
+    </button>
 
     <div id="history-panel" class="modal-overlay">
         <div class="modal-content">
@@ -588,19 +593,45 @@
 
         async function loadWilayah(cur, next) {
             const code = document.getElementById(cur).value;
+
+            if (next === 'desa') document.querySelector('.fab-add').style.display = 'none';
+
             const res = await fetch(code ? `/api/wilayah/${code}` : `/api/wilayah`);
             const data = await res.json();
+
             let html = `<option value="">Pilih ${next === 'kec' ? 'Kecamatan' : 'Desa'}</option>`;
-            data.forEach(d => html += `<option value="${d.kode}">${d.nama}</option>`);
+
+
+            data.forEach(d => {
+                html += `<option value="${d.kode}" data-allow="${d.allow_new}">${d.nama}</option>`;
+            });
+
             document.getElementById(next).innerHTML = html;
         }
 
         function onDesaChange() {
-            const val = document.getElementById('desa').value;
+            const desaSelect = document.getElementById('desa');
+            const val = desaSelect.value;
+            const fabBtn = document.querySelector('.fab-add'); 
+
             document.getElementById('search-area').style.display = val ? 'block' : 'none';
+
             if (val) {
+
+                const selectedOption = desaSelect.options[desaSelect.selectedIndex];
+
+                const canAdd = selectedOption.getAttribute('data-allow') === 'true';
+
+                if (canAdd) {
+                    fabBtn.style.display = 'flex'; 
+                } else {
+                    fabBtn.style.display = 'none'; 
+                }
+
                 currentPage = 1;
                 loadUsaha();
+            } else {
+                fabBtn.style.display = 'none'; 
             }
         }
 
